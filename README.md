@@ -20,6 +20,22 @@ var obj = {
 obj.show(fn);
 
 ```
-
 * this 函数执行的上下文对象 相当于obj.show(fn) 传进去一个实参，然后这个实参调用fn()
-* 这样就打印两个undefined
+* nodejs环境这样就打印两个undefined，浏览器var一个变量，可能会执行不一样，打印10
+
+3. 请写出 inner 的实际高度。
+```
+<style>
+  .outer {
+    width: 200px;
+    height: 100px;
+  }
+  .inner {
+    width: 60px;
+    height: 60px;
+    padding-top: 20%;
+  }
+</style>
+<div class="outer"><div class="inner"></div></div>
+```
+* 当内边距（padding）是一个百分比的时候， 百分比是和包含块（containing block）的宽度有关的，同样一定不能为负数。

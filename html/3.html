@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .outer {
+            width: 300px;
+            height: 100px;
+            background-color: bisque;
+        }
+    
+        .inner {
+            width: 60px;
+            height: 60px;
+            border-color: crimson;
+            padding-top: 20%; 
+            
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+<script type="text/javascript">
+    console.log(document.getElementsByClassName('inner')[0]);
+    let a = document.getElementsByClassName('inner');
+    console.log(a)
+</script>
+<body>
+    <div class="outer">
+        <div class="inner"></div>
+    </div>
+</body>
+</html>
