@@ -39,3 +39,4 @@ obj.show(fn);
 <div class="outer"><div class="inner"></div></div>
 ```
 * 当内边距（padding）是一个百分比的时候， 百分比是和包含块（containing block）的宽度有关的，同样一定不能为负数。
+* margin-top 同理也是一样，当value为percentage时候，是和本身包含的元素宽度有关。
