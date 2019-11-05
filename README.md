@@ -40,3 +40,8 @@ obj.show(fn);
 ```
 * 当内边距（padding）是一个百分比的时候， 百分比是和包含块（containing block）的宽度有关的，同样一定不能为负数。
 * margin-top 同理也是一样，当value为percentage时候，是和本身包含的元素宽度有关。
+
+4. 手写一个深拷贝函数。
+* 答案参考js/deepCopy.js
+* 先创建一个函数，区分object和array的类型
+* 然后进行迭代
