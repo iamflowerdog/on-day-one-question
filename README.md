@@ -64,3 +64,4 @@ obj.show(fn);
   - [Understanding the Publish/Subscribe Pattern](https://docs.microsoft.com/en-us/previous-versions/msdn10/hh201955(v=msdn.10))
   
 ### 7. delete 数组的 item，数组的 length 是否会 -1 (11月12日)
+* 经测试发现，delete 数组item并不改变数组length的长度
