@@ -21,7 +21,7 @@ class EventEmitter {
     this.emit('newListener', eventName, listener);//触发newListener事件回调
 
     if (!this._events[eventName]) {//事件队列不存在
-      this._events[eventName] = [];
+      this._events[eventName] = []; // 有可能一个eventName绑定多个回调函数，所以需要用数组
     }
 
     this._events[eventName].push(listener);//添加观察者
@@ -49,7 +49,7 @@ class EventEmitter {
   removeListener(eventName, listener) {
     if (!this._events[eventName]) { return; }
 
-    this._events[eventName] = this._events[eventName].forEach(item => {
+    this._events[eventName] = this._events[eventName].filter(item => {
       return item !== listener && item.cb !== listener;
     });
   }
@@ -66,14 +66,30 @@ class EventEmitter {
 
 
 let event = new EventEmitter()
+
 // 监听事件
+
+function t2(text) {
+  console.log(text + ' t2');
+}
+
+function t3(text) {
+  console.log(text + ' t3');
+}
+
+function t4(text) {
+  console.log(text + ' t4');
+}
+
 event.on('message', function t1 (text) {
-  console.log(text)
+  console.log(text);
 });
-event.on('go', function t2 (text) {
-  console.log(text)
-})
+event.on('click', t2);
+event.on('click', t3);
+
 // 触发事件
-event.emit('message', 'hello world');
-event.emit('go', 'go ahead');
-console.log(event._events);
+event.emit('message', 'message');
+event.emit('click', 'click');
+event.removeListener('click', t3);
+event.addListener('click', t4);
+event.emit('click', 'remove');

@@ -53,3 +53,13 @@ obj.show(fn);
 * 403 禁止访问，请求服务器被拒绝
 
 6. 手写发布订阅模式 EventEmitter.
+* 答案：js/eventEmitter.js
+* 实现的关键要素
+  1. 发布者有一个订阅者的缓存队列
+  2. 发布者有增加和删除订阅者的方法
+  3. 发布者状态改变，需要notify方法通知所有订阅者
+  4. js中采用事件回调的方式更新订阅者，因此订阅者不需要update方法
+* 课后延伸：
+  - [javascript异步编程的4种方法](http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html)
+  - [Understanding the Publish/Subscribe Pattern](https://docs.microsoft.com/en-us/previous-versions/msdn10/hh201955(v=msdn.10))
+  
