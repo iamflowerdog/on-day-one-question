@@ -13,3 +13,21 @@
   const { e, f, ...rest } = { e: 1, f: 4, g: 5, h: 7 }; // rest  {g: 5, h: 7}
 
 ```
+
+#### 2. ES6 类和 ES5 函数构造函数有什么区别？
+* 函数（Function）
+* 函数也是一个对象（一等对象），函数中可以保存可以执行的代码，并且在需要时对其进行调用
+* 函数中存储的是功能（代码）
+```
+  // es5 Function Constrctor
+  function Person (name) {
+    this.name = name;
+  }
+
+  // es6 Class
+  class Person1 {
+    constructor (name) {
+      this.name = name;
+    }
+  }
+```
