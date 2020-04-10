@@ -39,3 +39,5 @@ class Mate extends Person2 {
 let mate = new Mate('yyh', 12);
 
 console.log(mate instanceof Person2) // true
+
+// 关于Object.create() https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create
