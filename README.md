@@ -13,38 +13,6 @@
 3. 未来规划
   - 前端做好
 
-
-
-### CSS基础
-
-#### BFC 浮动
-* float：CSS属性指定一个元素应沿其容器的左侧或右侧放置，允许文本和内联元素环绕它。该元素从网页的正常流动(文档流)中移除，尽管仍然保持部分的流动性（与绝对定位相反）
-* 由于float意味着使用块布局，它在某些情况下修改display 值的计算值：
-* inline --> block  flex-> flex 对flex不生效
-
-#### flex 
-* 是一个CSS的display 属性中新添加一个值,它将使它适用的元素成为一个flex container（伸缩容器），而这个元素的每个子元素将成为 flex item（伸缩项目）
-* flex 属性是flex-grow, flex-shrink 和 flex-basis 属性的简写。
-* flex-grow 属性定义弹性盒子项（flex item）的拉伸因子
-* flex-shrink 属性指定了 flex 元素的收缩规则。flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值。
-* flex-basis 属性 flex-basis 指定了 flex 元素在主轴方向上的初始大小。如果不使用  box-sizing 改变盒模型的话，那么这个属性就决定了 flex 元素的内容盒（content-box）的尺寸。
-
-#### 1px
-* 获取设备屏占比，然后通过设置 viewport transform scale()
-*  ios 可以直接写 0.5px
-* rem就是根元素的字体大小！<html>标签。网页<html>的默认字体大小是 16px。也就是浏览器默认的字号16px。
-```
-
-
-(function() {
- function autoRootFontSize() {
-  document.documentElement.style.fontSize = Math.min(screen.width, document.documentElement.getBoundingClientRect().width) / 750 * 32 + 'px';}
-  window.addEventListener('resize', autoRootFontSize);
-  autoRootFontSize();
-})();
-
-```
-
 ### React 和 Vue 不同
 1. 监听数据变化的实现原理不同
   - Vue通过getter/setter以及一些函数劫持，能精确的知道数据变化，不需要特别优化就能达到很好的性能，可变数据
@@ -68,6 +36,11 @@
   - Redux，每一个组件都需要显示用connect把需要的props和dispatch链接起来
   - Redux使用的是不可变数据，而Vuex数据可变的，Redux每次更新都用state替换旧的state，而Vuex直接修改
   - Redux在检测数据变化的时候，而是通过diff方式比较差异，而Vue是通过getter/setter来比较的。
+7. 虚拟dom diff不同
+  - vue中，即便是同一个类型的节点，只要属性不同就执行删除，这与react不相同，react同一类型节点，只更新其节点的属性
+  - updateChildren Vue首位两个子元素比较，由两端至中间的比较，React是从左至右依次进行比较，各有有点
+  - 如果要把一个节点移到最后，react需要依次移动，vue可以直接移动
+  * 二者都只比较同一层级变化，不比较跨层变化
 
 ### Virtual DOM
 * 真实DOM很慢，一个简单的div元素的属性有很多，原生JS对象处理处理起来很快，用JS对象表达DOM树上的结构、属性信息
@@ -77,6 +50,7 @@
 * Virtual DOM本质上就是JS和DOM之间做了一个缓存，类似CPU和硬盘
 * 比较两颗虚拟DOM树的差异，两颗树完全diff算法是一个时间复杂度为O(n^3)的问题，但前端中很少会跨层级移动DOM元素，同一个层级表算法复杂度就是O(n)
 * DocumentFragment 文档片段接口，不是真实的DOM树一部分，变化不回出发DOM树的重新渲染，不会导致性能问题
+
 
 ### MVC MVVM  MVP(Presenter)
 1. View -> Controller -> Modal -> View 单向的♻️的，
