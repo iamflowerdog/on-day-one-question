@@ -49,6 +49,7 @@
 1. 监听数据变化的实现原理不同
   - Vue通过getter/setter以及一些函数劫持，能精确的知道数据变化，不需要特别优化就能达到很好的性能，可变数据
   - React默认是通过比较引用的方式，如果不优化(Pure/shoulComponentUpdate)可能导致大量不必要的VDOM的重新渲染，抢到数据的不可变
+  - MVVM 的变化检查是数据层面的，而 React 的检查是 DOM 结构层面的
 2. 数据流不同
   - React 一直单向数据流，onChange/setState()模式 父组件->子组件->DOM
   - Vue2.x 组件和DOM之间双向绑定 Vue1.x 父组件<->子组件<->DOM
@@ -68,3 +69,18 @@
   - Redux使用的是不可变数据，而Vuex数据可变的，Redux每次更新都用state替换旧的state，而Vuex直接修改
   - Redux在检测数据变化的时候，而是通过diff方式比较差异，而Vue是通过getter/setter来比较的。
 
+### Virtual DOM
+* 真实DOM很慢，一个简单的div元素的属性有很多，原生JS对象处理处理起来很快，用JS对象表达DOM树上的结构、属性信息
+1. 用js对象创建一个DOM树结构，然后用这个树构建一个真正的DOM树，插到文档中
+2. 当状态变更的时候，重新构造一个新的对象树，用的树和旧的树对比，记录差异
+3. 把差异应用到dom树上，视图就更新了
+* Virtual DOM本质上就是JS和DOM之间做了一个缓存，类似CPU和硬盘
+* 比较两颗虚拟DOM树的差异，两颗树完全diff算法是一个时间复杂度为O(n^3)的问题，但前端中很少会跨层级移动DOM元素，同一个层级表算法复杂度就是O(n)
+* DocumentFragment 文档片段接口，不是真实的DOM树一部分，变化不回出发DOM树的重新渲染，不会导致性能问题
+
+### MVC MVVM  MVP(Presenter)
+1. View -> Controller -> Modal -> View 单向的♻️的，
+2. view <-> viewModel <=> Modal ViewModal和Model双向绑定
+3. Model 模型，领域模型，面向对象，数据访问层，View 视图，用户屏幕上看到的结构，布局和外观，VM，视图模型，暴露公共属性和命令的视图抽象
+绑定器在视图和数据绑定器进行通信
+4. 绑定器，声明性数据和命令绑定隐含在MVVM模式中
