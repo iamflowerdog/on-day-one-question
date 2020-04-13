@@ -18,8 +18,10 @@
 * 数据对象监听的时候，对象添加属性，数组改变长度，修改数组某一个值，不是响应式的，需要通过$set(),来更新
 `this.$set(this.someObject,'b',2), vm.items.splice(indexOfItem, 1, newValue)`
 * 由于Vue会在初始化实例的时候，对属性执行getter/setter转化，所以必须在date对象上存在才能Vue为他转换为响应式的。
+* 为什么数组的push方法能改变页面，因为vue自己做了一层封装
 
 #### vm.nextTIck()
 * 异步更新队列，Vue只要侦听到数据变化，Vue将开启一个队列，并缓存在同一事件循环中发生中，发生所有数据变更，如果同一个watcher被多次触发
 只会被推入到队列中依次，这样可以避免重复操作DOM，内部用Promise.then、mutationObserve 如果执行环境不允许，则采用setTimeout(fn, o)来代替
 * 如果我们想等待DOM更新后做点什么，可以使用vm.nextTick()，React通过this.setState({}, () => {})来获取异步更新后的动作
+
