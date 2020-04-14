@@ -25,3 +25,9 @@
 只会被推入到队列中依次，这样可以避免重复操作DOM，内部用Promise.then、mutationObserve 如果执行环境不允许，则采用setTimeout(fn, o)来代替
 * 如果我们想等待DOM更新后做点什么，可以使用vm.nextTick()，React通过this.setState({}, () => {})来获取异步更新后的动作
 
+#### Vue响应式原理
+* 非侵入性的响应式系统，数据模型仅仅是普通的Javascript对象，当你修改时候，视图会进行更新，使得它的状态管理非常简单和直接
+>如何追踪变化？
+* 把一个普通的Javascript对象传入Vue实例作为date选项，Vue遍历此对象的所有属性，并使用Object.defineProperty把这些属性全部转为getter/setter。
+每一个组件实例都对应一个watcher实例，他会在组件渲染过程中，把接触过的数据属性记录为依赖，之后当依赖项的setter触发时，会通知watcher，从而使它关联
+组件重新渲染

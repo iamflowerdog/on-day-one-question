@@ -51,3 +51,29 @@ console.log('2');
 * 一旦一个promise有了结果，或者早已有了结果，他就会为他的回调产生一个微任务，这就保证这回调异步执行，所以 会打印  promise1 promise2 然后再打印 setTimeout 
 因为微任务总会在下一个宏任务执行前全部执行完毕
 
+### js垃圾回收
+* 标记清除，变量进入执行环境标记为 `进入环境`，当变量离开执行环境时标记为 `离开环境`
+* 引用计数：统计引用类型变量声明后被引用的次数，当次数为0时，该变量将被回收，有缺点，循环引用
+现代浏览器都用标记清除，不用担心引用循环
+
+### js内存泄漏
+1. 全局变量造成内存泄露 `a = 4; console.log(4)`
+2. 未销毁的定时器和回调函数造成内存泄露
+3. 闭包造成的内存泄露 内部函数，有权访问包含其他外部函数中的变量
+4. DOM引用造成内存泄露 
+```
+var elements = {
+  txt: document.getElementById("test")
+}
+function fn() {
+  elements.txt.innerHTML = "1111"
+}
+function removeTxt() {
+  document.body.removeChild(document.getElementById('test'));
+}
+fn();
+removeTxt()
+console.log(elements.txt)
+```
+
+### cookie/session/local 区别

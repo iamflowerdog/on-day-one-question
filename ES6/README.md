@@ -31,3 +31,9 @@
     }
   }
 ```
+
+#### 3. ES6数组去重
+1. Set + Array.from(); 
+`let temp = [1, 2, 3, 3]; let set = new Set(temp); Array.form(set)`
+2. ... + Set
+`let tt = [...new Set([5, 5, 6, 8])];`
