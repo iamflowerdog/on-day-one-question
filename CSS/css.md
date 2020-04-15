@@ -5,6 +5,8 @@
 * float：CSS属性指定一个元素应沿其容器的左侧或右侧放置，允许文本和内联元素环绕它。该元素从网页的正常流动(文档流)中移除，尽管仍然保持部分的流动性（与绝对定位相反）
 * 由于float意味着使用块布局，它在某些情况下修改display 值的计算值：
 * inline --> block  flex-> flex 对flex不生效
+* 清除浮动 clear: both;
+
 
 #### flex 
 * 是一个CSS的display 属性中新添加一个值,它将使它适用的元素成为一个flex container（伸缩容器），而这个元素的每个子元素将成为 flex item（伸缩项目）

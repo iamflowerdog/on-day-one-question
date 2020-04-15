@@ -77,3 +77,6 @@ console.log(elements.txt)
 ```
 
 ### cookie/session/local 区别
+1. cookie存储空间很小4kb，在浏览器和服务器直接传递，存储用户登陆信息，比如记住密码，辨别用户身份的数据来实现的
+2. sessionstorage 仅在当前浏览器会话窗口中有效，随着浏览器关闭，就清除5m  同一个域名网站下面共享
+3. localstorage 永久存储，除非手动删除
