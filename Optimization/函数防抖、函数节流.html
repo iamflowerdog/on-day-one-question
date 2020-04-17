@@ -11,10 +11,14 @@
     <button id="btn">send</button>
     <script type="text/javascript">
         let btnDom = document.querySelector('#btn');
-        btnDom.addEventListener('click', jieliu(success, 1000));
-        function success() {
+        let cls = jieliu(success, 1000);
+        btnDom.addEventListener('click', function (e) {
+            cls(e, 'ttt')
+        });
+
+        function success(e, content) {
             this.innerText = 'send ok';
-            console.log('send ok');
+            console.log(e, content);
         }
 
 
@@ -22,10 +26,11 @@
         function jieliu(callback, delay) {
             let timer;
             return function () {
+                let arg = arguments;
                 let that = this;
                 if (timer) return;
                 timer = setTimeout(function () {
-                    callback.call(that);
+                    callback.apply(that, arg);
                     timer = null;
                 }, delay)
             }
@@ -41,7 +46,9 @@
             let timer;
             return function () {
                 let arg = arguments;
-                clearTimeout(timer);
+                if (timer) {
+                    clearTimeout(timer);
+                }
                 let that = this;
                 timer = setTimeout(function () {
                     f.apply(that, arg)
@@ -49,9 +56,9 @@
             }
         }
 
-        document.onmousemove = function (e) {
-            closure(e, 'debounce');
-        }
+        // document.onmousemove = function (e) {
+        //     closure(e, 'debounce');
+        // }
     </script>
 </body>
 
