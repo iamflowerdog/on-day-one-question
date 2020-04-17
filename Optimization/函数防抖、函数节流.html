@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">send</button>
+    <script type="text/javascript">
+        let btnDom = document.querySelector('#btn');
+        btnDom.addEventListener('click', jieliu(success, 1000));
+        function success() {
+            this.innerText = 'send ok';
+            console.log('send ok');
+        }
+
+
+        // 函数节流
+        function jieliu(callback, delay) {
+            let timer;
+            return function () {
+                let that = this;
+                if (timer) return;
+                timer = setTimeout(function () {
+                    callback.call(that);
+                    timer = null;
+                }, delay)
+            }
+        }
+
+        // 函数防抖
+        function fn(e, content) {
+            console.log(e, content)
+        }
+        let closure = debounce(fn)
+
+        function debounce(f) {
+            let timer;
+            return function () {
+                let arg = arguments;
+                clearTimeout(timer);
+                let that = this;
+                timer = setTimeout(function () {
+                    f.apply(that, arguments)
+                }, 1000)
+            }
+        }
+
+        document.onmousemove = function (e) {
+            closure(e, 'debounce');
+        }
+    </script>
+</body>
+
+</html>

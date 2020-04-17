@@ -24,3 +24,4 @@ setTimeout(() => {
     console.log('promise2')
   })
 }, 0)
+
