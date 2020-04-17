@@ -66,3 +66,26 @@
     写一个鉴权vue插件，所有操作放到methods里面， 所有操作@click里面调用鉴权函数，如果有则调用this[authName].apply(null, arg)
 
   ```
+
+#### Vue解决跨域
+1. 在config文件夹下的index.js中进行如下修改
+```
+
+proxyTable:{
+     "/api":{
+         target:"后端提供服务的前缀地址",
+         changeOrigin:true,
+         pathRewrite:{
+              '^/api':''
+         }
+     }
+}
+```
+2. 在main.js添加一个代理
+`Vue.prototype.HOST='/api'`
+ 声明：此种跨域只适用于测试开发阶段，项目正式上线并不实用，需要后端去处理跨域问题
+
+ #### Vuex
+ * Vuex应用的核心就是store，store就是一个容易，包含我们应用中的大部分状态，和普通的全局对象有两个不同的地方
+ 1. Vuex存储是响应式的，vue组件从store中读取状态的时候，store中的状态发生变化，那么相应的组件也会更新
+ 2. 

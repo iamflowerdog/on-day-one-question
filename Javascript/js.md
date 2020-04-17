@@ -77,6 +77,47 @@ console.log(elements.txt)
 ```
 
 ### cookie/session/local 区别
-1. cookie存储空间很小4kb，在浏览器和服务器直接传递，存储用户登陆信息，比如记住密码，辨别用户身份的数据来实现的
-2. sessionstorage 仅在当前浏览器会话窗口中有效，随着浏览器关闭，就清除5m  同一个域名网站下面共享
-3. localstorage 永久存储，除非手动删除
+* 相同点：
+  1. 目的，解决http请求无状态的，下一次请求并不知道你已经登陆了
+  2. 都是存储数据，存在web端，并且都是同源
+* 不同点
+  1. cookie存储空间很小4kb，每一次请求都会戴上cookie，体验不好，浪费带宽，document.cookie来存储，cookie数据还有路径(path)概念，可以限制cookie只属于某个路径下。
+  2. sessionstorage 临时会话，当窗口被关闭的时候就清除，而local永久存在，cookie有过期时间
+  3. cookie 和 localstorage 都可以支持浏览器多窗口共享，而session不支持多窗口共享，但是都支持a链接跳转
+  4. sessionStorage 和localStorage 不会自动把数据发送给服务器，仅在本地保存
+
+### 跨域
+* 为什么会出现跨域？
+处于浏览器同源策略，浏览器会拒绝跨域请求，实际上拒绝跨越读操作
+  - 浏览器允许跨域写操作(cross-orign writes)，如链接，重定向
+  - 浏览器允许跨域资源嵌入(cross-origin embedding)，如img、script标签
+  - 浏览器不允许跨域读操作(cross-origin reads)
+* 为什么会有跨域需求？
+工程服务化后，不同职责的服务分散在不同的工程中，这些工程域名是不同的，但一个需求需要调用不同的服务接口，因此会出现跨域。
+* 如何实现跨域？
+1. JSONP，因为同源策略的影响，不能通过XMLHttpRequest请求不同域名上的数据，但是在页面上嵌入不同js脚本可以，可以js文件载入完毕后，触发回调，可以将data作为参数传入
+```
+<script type="text/javascript">
+    function dosomething(data){
+        //处理获得的数据
+    }
+</script>
+<script src="http://example.com/data.php?callback=dosomething"></script>
+<?php
+$callback = $_GET['callback'];//得到回调函数名
+$data = array('a','b','c');//要返回的数据
+echo $callback.'('.json_encode($data).')';//输出
+?>
+```
+2. CORS Cross-Origin Resource Sharing
+W3C新的官方方案，能使服务器支持XMLHttpRequest的跨域请求，请求报文中表明请求来源 `Origin: http://foo.example`, 服务端相应报文设置 `Access-Control-Allow-Origin: *`
+有时候需要跨域发送凭证信息，如HTTP Cookies验证信息，默认不会跨域发送，如果需要可以
+```
+var xhr = XMLHttpRequest()
+xhr.withCredentials = true;
+
+服务端必须响应头中 Access-Control-Allow-Credentials 字段存在且为 true 时，浏览器才会将响应结果传递给客户端程序。另外，Access-Control-Allow-Origin 必须指定请求源的域名，否则响应失败。
+```
+3. postMessage
+
+HTML5新加入的特性，可以使用它来向其他window 对象发送发送消息，无论是否同源

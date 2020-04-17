@@ -13,3 +13,6 @@ HTTPS协议的主要作用可以分为两种：一种是建立一个信息安全
 5. http使用TCP三次握手建立链接，客户端和服务端需要交换三个包，https除了tcp三个包，还要加上ssl需要的9个包，一共12个包
 
 ## XSS攻击防范
+* 通过目标网站上注入脚本，恶意代码注入 `http://xxx/search?keyword="><script>alert('XSS');</script>`
+  转译特殊字符串 `<` 转译成 &lt;
+# 
