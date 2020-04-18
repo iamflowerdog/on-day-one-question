@@ -14,23 +14,12 @@
 
 ```
 
-#### 2. ES6 类和 ES5 函数构造函数有什么区别？
-* 函数（Function）
-* 函数也是一个对象（一等对象），函数中可以保存可以执行的代码，并且在需要时对其进行调用
-* 函数中存储的是功能（代码）
-```
-  // es5 Function Constrctor
-  function Person (name) {
-    this.name = name;
-  }
-
-  // es6 Class
-  class Person1 {
-    constructor (name) {
-      this.name = name;
-    }
-  }
-```
+#### 2. ES6 类和 ES5 函数构造函数有什么区别？ ./class.js
+1. ES5的构造函数的原型对象的属性和方法可以遍历/ES6不行
+2. ES6的类必须通过new调用，构造函数则可以不用
+3. 类不存在变量提升
+4. ES6的类没有私有方法和私有属性
+5. class多了一个静态方法，里面的this指向类本身，静态方法可以被子类继承
 
 #### 3. ES6数组去重
 1. Set + Array.from(); 
