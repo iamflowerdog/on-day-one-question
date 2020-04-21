@@ -88,7 +88,8 @@ proxyTable:{
  #### Vuex
  * vue.js中管理数据状态的一个库，创建一个集中的数据存储，供程序中所有组件访问
  * 通过普通的数据传递，一个数据被多个组件使用
+ * state: { list: [{price: 2, name: 'yyh'}]} 
  * getter 访问stroe访问数据，muttation 传递状态 修改数据
  * muttation : 同步修改数据 this.$store.mutation.reducePrice（其原理是通过，computed计算属性，获取getter数据的时候，会触发数据修改）
- * action: 和mutation作用是一样的，但是可以异步调用，并且可以自定义参数 (this.$store.dispatch('reduce', 4)) 
+ * action: 和mutation作用是一样的，但是可以异步调用，并且可以自定义参数 (this.$store.dispatch('reduce', 4))，通过actions可以记录每次更改，在devtools可以看到更改过程
   `action: { reduce(context, payload) {context.commit('reduce', payload)}}`

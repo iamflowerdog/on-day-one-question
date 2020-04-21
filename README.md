@@ -5,10 +5,16 @@
 
 1. 项目经历。
   - 接触前端工作有四年时间了，前两年在一家法律互联网公司工作，在公司主要负责CRM销售服务系统，用的技术栈主要是React，UI组件使用的是antdesign
+  ```
+  hey,guys! My name is Yonghai, you guys can call me Yang, I come from Henan province, now live in Beijing District, I have now passed the quarantine period，I can start a new job immediately,
+  I have been working in front-end development for four years. In the first two years, I worked in a legal Internet company. I was mainly responsible for the sales and service system. The technology stack used was React, and the UI components used antdesign.
+  In the past two years, I have worked in a real estate company, The company has two front ends developer, I am the team leader, At this company, we used Vue and the UI components we used iView, this period I developed wechat mini progromer and  Company annual bill pages with h5
+  ```
   - 最近这两年在一家房地产公司，在公司主要负责资产管理系统的开发，公司有两个前端，我是组长，这期间用的技术栈主要是Vue，UI组件使用的是iView，中间也做过小程序开发，H5页面，公司年度账单
 
 2. 学习方面
   - 我平时喜欢逛github，业余时间创建了自己的个人网站，还有微信公众号，平时还会通过观看视频，书籍等渠道充实前端知识
+  - I usually enrich my front-end knowledge by watching videos, books and other channels
 
 3. 编程格言
   - 输出的是价值，不是代码，执行效率
