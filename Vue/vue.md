@@ -70,7 +70,7 @@
 #### Vue解决跨域
 1. 在config文件夹下的index.js中进行如下修改
 ```
-
+// 使用http-proxy-middleware 代理解决（项目使用vue-cli脚手架搭建）
 proxyTable:{
      "/api":{
          target:"后端提供服务的前缀地址",
@@ -86,6 +86,9 @@ proxyTable:{
  声明：此种跨域只适用于测试开发阶段，项目正式上线并不实用，需要后端去处理跨域问题
 
  #### Vuex
- * Vuex应用的核心就是store，store就是一个容易，包含我们应用中的大部分状态，和普通的全局对象有两个不同的地方
- 1. Vuex存储是响应式的，vue组件从store中读取状态的时候，store中的状态发生变化，那么相应的组件也会更新
- 2. 
+ * vue.js中管理数据状态的一个库，创建一个集中的数据存储，供程序中所有组件访问
+ * 通过普通的数据传递，一个数据被多个组件使用
+ * getter 访问stroe访问数据，muttation 传递状态 修改数据
+ * muttation : 同步修改数据 this.$store.mutation.reducePrice（其原理是通过，computed计算属性，获取getter数据的时候，会触发数据修改）
+ * action: 和mutation作用是一样的，但是可以异步调用，并且可以自定义参数 (this.$store.dispatch('reduce', 4)) 
+  `action: { reduce(context, payload) {context.commit('reduce', payload)}}`
