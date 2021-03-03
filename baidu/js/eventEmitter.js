@@ -65,7 +65,7 @@ class EventEmitter {
 
 
 
-let event = new EventEmitter()
+let event1 = new EventEmitter()
 
 // 监听事件
 
@@ -81,15 +81,15 @@ function t4(text) {
   console.log(text + ' t4');
 }
 
-event.on('message', function t1 (text) {
+event1.on('message', function t1 (text) {
   console.log(text);
 });
-event.on('click', t2);
-event.on('click', t3);
+event1.on('click', t2);
+event1.on('click', t3);
 
 // 触发事件
-event.emit('message', 'message');
-event.emit('click', 'click');
-event.removeListener('click', t3);
-event.addListener('click', t4);
-event.emit('click', 'remove');
+event1.emit('message', 'message');
+event1.emit('click', 'click');
+event1.removeListener('click', t3);
+event1.addListener('click', t4);
+event1.emit('click', 'remove');
