@@ -1,3 +1,4 @@
+// https://github.com/sl1673495/javascript-codes/blob/6ff027f396296b5708afa01ecbe9859254aba74a/curry-add.js
 function add(...nums) {
   let res = sum(nums);
 
@@ -41,7 +42,7 @@ add(5, 4)(3, 2)(1)(3);
 // console.log('执行三次：', add(1, 2)(3)(4))
 // console.log('执行四次：', add(1)(2)(3)(4)(5));
 
-
+// https://github.com/yuyongyu08/JavaScript/blob/d7d19b09d0ffcd68f21da3d8f77ffe0d9d3cc24e/interview/2020/Array/curry.js
 var curry = fn =>
   judge = (...args) =>
     args.length === fn.length
@@ -71,6 +72,21 @@ console.log('执行四次：', add(1)(2)(3)(4)(5));
 
 // https://cjting.me/2016/01/17/javascript-infinite-currying/
 
+
+/**
+ *  // 定义一个函数 add，满足如下性质：
+    add(1) == 1
+    add(1)(2) == 3
+    add(1)(2)(3) == 6
+    ...
+    var g = add(1)(2)
+    g(100) == 103
+    g(200) == 203
+ * 
+ */
+
+
+
 function total(args) {
   return [].slice.call(args).reduce((t, c) => t + c, 0)
 }
@@ -88,3 +104,9 @@ function add() {
 
   return factor(total(arguments))
 }
+
+// add(1) == 1; true
+
+// add(1) --> function () { return factor(value, + total(arguments))}
+
+// add(1)(2) == 3;
