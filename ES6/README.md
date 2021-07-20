@@ -29,3 +29,8 @@
 `let temp = [1, 2, 3, 3]; let set = new Set(temp); Array.form(set)`
 2. ... + Set
 `let tt = [...new Set([5, 5, 6, 8])];`
+
+#### 4. Promise
+1. 
+
+#### 5. 利用 async 函数 实现异步
