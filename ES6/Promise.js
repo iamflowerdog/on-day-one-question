@@ -3,7 +3,7 @@ let fs = require('fs');
 
 let readFile = function (filename) {
   return new Promise(function(resolve, reject) {
-    fs.readFiles(filename, 'utf-8', function(error, data) {
+    fs.readFile(filename, 'utf-8', function(error, data) {
       if (error) reject(error)
       resolve(data)
     })

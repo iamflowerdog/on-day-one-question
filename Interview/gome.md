@@ -12,7 +12,7 @@
 
 
 ### 7. 两个ajax 请求，通过Promise 怎么实现等待一个成功后，再执行后一个
-`https://juejin.cn/post/6844903762251759624`
+`../ES6/promise/promiseChain.js`
 
 ### 8. 数组随机排序 最快的方法，冒泡，插入，非布拉希
 
