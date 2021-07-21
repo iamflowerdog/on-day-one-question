@@ -1,3 +1,5 @@
+// 参考链接 https://zhuanlan.zhihu.com/p/196671665
+
 Promise.yyhAll = function (array) {
   let result = [];
   return new Promise((resove, reject) => {
