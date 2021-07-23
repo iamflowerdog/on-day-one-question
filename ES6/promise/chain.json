@@ -1,4 +1,5 @@
 {
   "name": "invoker",
-  "url": "http://192.168.1.67:8009/omni-license/get-device-id"
+  "url": "http://192.168.1.67:8009/omni-license/get-device-id",
+  "githubUser": "https://api.github.com/users/github"
 }

@@ -1,5 +1,10 @@
 // 参考链接 https://zhuanlan.zhihu.com/p/196671665
 
+
+// Promise.all()方法接受一个数组作为参数，p1、p2、p3都是 Promise 实例，如果不是，就会先调用的Promise.resolve方法
+
+// Promise.all()方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例
+
 Promise.yyhAll = function (array) {
   let result = [];
   return new Promise((resove, reject) => {

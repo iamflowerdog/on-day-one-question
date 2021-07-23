@@ -33,7 +33,7 @@ let p2 = new Promise(function (resolve, reject) {
 
 
 
-Promise.prototype.yyh = function (callback) {
+Promise.prototype.yyhFinally = function (callback) {
   let P = this.constructor
   return this.then(
     (value) => P.resolve(callback()).then(() => value),
@@ -45,6 +45,9 @@ p1
   .catch((data) => {
     console.log(data)
   })
-  .yyh((data) => {
+  .yyhFinally((data) => {
     console.log(data)
   })
+
+Promise.resolve(2).then((data) => {}, () => {}).then(res => {console.log(res)}) // undefined
+Promise.resolve(2).finally((data) => {}).then(res => {console.log(res)}) // 2
