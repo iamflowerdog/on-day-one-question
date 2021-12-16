@@ -4,6 +4,11 @@
 
 
 ### 浏览器从输入 url 到页面渲染？
+1. 解析URL 
+  * "http" 开头 使用HTTP协议
+  * "/"  请求的是资源主页(index)
+2. 判断输入的是URL还是搜索的关键字？
+3. 检查[HSTS](https://zh.wikipedia.org/wiki/HTTP%E4%B8%A5%E6%A0%BC%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8)列表
 
 
 
