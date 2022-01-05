@@ -1,0 +1,41 @@
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.ellipsis {
+    position: relative;
+}
+.ellipsis:before {
+    content: '&nbsp;';
+    visibility: hidden;
+}
+.ellipsis span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Header 1</th>
+      <th>Header 2</th>
+      <th>Header 3</th>
+      <th>Header 4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="ellipsis first"><span>This Text Overflows and is too large for its cell.</span></td>
+      <td class="ellipsis"><span>This Text Overflows and is too large for its cell.This Text Overflows and is too large for its cell</span></td>
+      <td class="ellipsis"><span>This Text Overflows and is too large for its cell.</span></td>
+      <td class="ellipsis"><span>This Text Overflows and is too large for its cell.</span></td>
+    </tr>
+  </tbody>
+</table>
