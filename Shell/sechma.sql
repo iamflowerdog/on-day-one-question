@@ -1,21 +1,21 @@
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
 values (1, 'TTFB', 1, true, 8, 8, 9000, 0, 0, 0, 1, 1, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
-values (2, 'Channel Utilization', 1, true, 8, 8, 9009, 0, 0, 0, 2, 1, 31);
+values (2, 'Channel Utilization', 1, true, 8, 8, 9009, 0, 0, 0, 2, 4, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
-values (3, 'Response payload', 1, true, 8, 8, 9002, 0, 0, 0, 3, 1, 31);
+values (3, 'Response payload', 1, true, 8, 8, 9002, 0, 0, 0, 3, 2, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
-values (4, 'Request payload', 1, true, 8, 8, 9001, 0, 0, 0, 4, 1, 31);
+values (4, 'Request payload', 1, true, 8, 8, 9001, 0, 0, 0, 4, 2, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
 values (5, 'Latency', 1, true, 8, 8, 9003, 0, 0, 0, 5, 1, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
-values (6, 'Retry', 1, true, 8, 8, 9004, 0, 0, 0, 6, 1, 31);
+values (6, 'Retry', 1, true, 8, 8, 9004, 0, 0, 0, 6, 0, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
-values (7, 'Host count', 1, true, 8, 8, 9005, 0, 0, 0, 7, 1, 31);
+values (7, 'Host count', 1, true, 8, 8, 9005, 0, 0, 0, 7, 0, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
-values (8, 'Inbound', 1, true, 8, 8, 9010, 0, 0, 0, 8, 1, 31);
+values (8, 'Inbound', 1, true, 8, 8, 9010, 0, 0, 0, 8, 3, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
-values (9, 'Outbound ', 1, true, 8, 8, 9011, 0, 0, 0, 9, 1, 31);
+values (9, 'Outbound ', 1, true, 8, 8, 9011, 0, 0, 0, 9, 3, 31);
 insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
 values (10, 'DNS Query Response Time', 1, true, 8, 8, 9006, 0, 0, 0, 10, 1, 31);
 -- insert into baseline_alarm_config (id, description, severity, enable, type, class, kpi_type, baseline_type, upper_thres, lower_thres, pid, kpi_method, days)
