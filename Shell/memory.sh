@@ -1,25 +1,8 @@
+# file /tmp/1.sh
 #!/bin/bash
-​
-PROCESS=foobar
-LOGFILE="memlog.txt"
-​
-#!/bin/bash
-# for ((;;))
-# while [ 1 ]
-while :
-do
-    PID=$(ps aux | grep $PROCESS | grep -v 'grep' | awk '{print $2;}')
-    if [ "$PID" != "" ]; then
-        echo `date +'%Y-%m-%d %H:%M:%S'`  >> "$LOGFILE"
-        MEM=$(ps aux | grep $PROCESS | grep -v 'grep' | awk '{print $5;}')
-        MEM="ps mem: "$MEM
-        RSS=$(cat /proc/$PID/status | grep RSS)
-        echo $PROCESS $MEM $RSS >> "$LOGFILE"
-    fi
-​
-    echo "System memory info: " $(cat /proc/meminfo | grep -E 'MemTotal|MemFree|Cached' |grep -v SwapCached|xargs)  >> "$LOGFILE"
-    echo "-------------" >> "$LOGFILE"
-​
-    sleep 5
+logfile="./zeekmem.txt"
+echo "   PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND"> "$logfile"
+for i in {1..10000000};do
+    top -b -n 1 | grep -E 'zeek|java|thunder-bot|omni-beat|omni-magnet|omni-leach|omni-decode|omni-sysinfo' >> "$logfile"
+    sleep 60
 done
-
