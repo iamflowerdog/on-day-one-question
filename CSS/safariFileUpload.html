@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+    crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <button onclick="handleClick()">test</button>
+
+  <div>
+    <label for="file">Choose file to upload</label>
+    <input type="file" id="file" name="file" multiple="">
+  </div>
+
+</body>
+
+<script>
+  let dom = document.getElementById('file')
+
+  function handleClick() {
+    console.log(dom)
+    
+
+    setTimeout(() => {
+      dom.click()
+    }, 2000)
+  }
+  
+</script>
+</html>
