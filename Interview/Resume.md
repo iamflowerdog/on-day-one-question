@@ -13,7 +13,7 @@
 * 个人博客：https://www.sprit.vip/
 
 # 工作经历~~~~
-#### 北京普利科技有限公司(外企) <span class="size" style="font-size:16px">（ 2020年4月 ~ 2022年4月 ）</span>
+#### 北京普利科技有限公司(外企) <span class="size" style="font-size:16px">（ 2020年4月 ~ 至今 ）</span>
 主要负责前端页面的设计与研发，主管部分测试工作。
 
 #### 北京意园创新办公服务股份有限公司 <span class="size" style="font-size:16px">（2018年11月 ~ 2020年4月）</span>
