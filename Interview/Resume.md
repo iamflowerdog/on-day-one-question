@@ -45,7 +45,7 @@
 5. 使用Java+postgresql写部分简单的API，能熟练使用Elasticsearch搜索工具。
 6. 创建shell脚本，定时获取linux服务器性能，定时监控服务器 cpu 内存状态
 7. 封装前端请求公用函数，Modal box、Alert、Form、穿梭框，以及全局翻译，全局skin替换。
-8. 主动提出引入自动化测试，让后端人员和我一起编写自动化项目(NetEyez Automation Test)，大大提升了项目交付质量，缩短了每次交付时间。
+8. 主动提出引入自动化测试，让后端人员和我一起编写自动化项目(NetEyez Automation Test)，大大提升了项目交付质量，缩短交付时间。
 
 ### EPMS项目
 
