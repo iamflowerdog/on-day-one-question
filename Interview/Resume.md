@@ -12,17 +12,20 @@
 * 期望城市：北京(可远程)
 * 个人博客：https://www.sprit.vip/
 
-# 工作经历~~~~
-#### 北京普利科技有限公司(外企) <span class="size" style="font-size:16px">（ 2020年4月 ~ 至今 ）</span>
-主要负责前端页面的设计与研发，主管部分测试工作。
+# 工作经历
+* <span class="size" style="font-size:16px; width: 200px; display: inline-block">2020年4月 ~ 至今</span> <span class="size" style="font-size:16px; width: 300px; display: inline-block">北京普利科技有限公司(外企)</span>    前端中级开发
 
-#### 北京意园创新办公服务股份有限公司 <span class="size" style="font-size:16px">（2018年11月 ~ 2020年4月）</span>
+* <span class="size" style="font-size:16px; width: 200px; display: inline-block">2018年11月 ~ 2020年4月</span> <span class="size" style="font-size:16px; width: 300px; display: inline-block">北京意园创新办公服务股份有限公司</span>  前端高级开发
 
-与UI设计、产品经理、后端研发合作，完成公司中后台建设，开发小程序页面，公司官网页面。
+* <span class="size" style="font-size:16px; width: 200px; display: inline-block">2017年9月 ~ 2018年10月</span> <span class="size" style="font-size:16px; width: 300px; display: inline-block">无讼网络科技有限公司</span>  前端高级开发
 
-#### 无讼网络科技有限公司<span class="size" style="font-size:16px">（ 2017年9月 ~ 2018年10月 ）</span>
+# 技能清单
 
-负责公司CRM销售服务系统建设，公司官网，部分H5宣传页面、小程序维护与开发。
+* 前端框架：Bootstrap/VueJS/React/angular/Redux/Rekit
+* 编程语言：JavaScript/ES6/TypeScript/HTML5/CSS3/java/shell/linux
+* 前端工具：Webpack/Gulp/SaSS/LeSS
+* 版本管理、文档和自动化部署工具：jenkins/Gitlab/Svn/Git/Travis-CI
+* 自动化测试
 
 
 
@@ -31,15 +34,18 @@
 
 ##### 实现技术：Angular + Smart-Admin UI + Elasticsearch
 
-1. 熟练使用C3D3HighChartsFunsionCharts可视化开源组件，展示流量
-2. 使用Java+postgresql写部分简单的API，能熟练使用Elasticsearch搜索工具。
-3. 解决页面长时间Realtime，因为内存泄漏造成页面卡顿。
-4. 创建shell脚本，定时获取linux服务器性能，定时监控服务器 cpu 内存状态
- 
-##### 性能优化
-1. 主动发现内存泄露问题，(一段时间浏览器卡死，内存持续增长),解决后内存稳定在100m左右
+2020年入职PVC，我负责整个前端项目搭建，和主要组件的封装，已经持续交付2年半，期间深度参与了NetEyez项目 Real-time的功能的重构工作。
+此项目期间主管分配给我一部分leader工作，把握项目进度，协调开发，测试人员的工作安排
+
+##### 主要工作
+1. 发现内存泄露问题，(一段时间浏览器卡死，内存持续增长),解决后内存稳定在100m左右
 2. 发现并解决 web page CPU 持续巨高不下(Pannel class 一直通过 get 获取)，解决后CPU从持续占用60% 到稳定在1%
 3. Nginx gzip 压缩解决transferred 过大（resouces 30MB），压缩后 (15.9M), 单个JS文件传输时间减少一半
+4. 熟练使用C3D3HighChartsFunsionCharts可视化开源组件，展示流量
+5. 使用Java+postgresql写部分简单的API，能熟练使用Elasticsearch搜索工具。
+6. 创建shell脚本，定时获取linux服务器性能，定时监控服务器 cpu 内存状态
+7. 封装前端请求公用函数，Modal box、Alert、Form、穿梭框，以及全局翻译，全局skin替换。
+8. 主动提出引入自动化测试，让后端人员和我一起编写自动化项目(NetEyez Automation Test)，大大提升了项目交付质量，缩短了每次交付时间。
 
 ### EPMS项目
 
@@ -87,13 +93,7 @@
 3. 详情页点击地图按钮可以查看活动位置
 4. 活动详情页通过后端存储HTML（通过rich-text API）字段展现
 
-# 技能清单
 
-* 前端框架：Bootstrap/VueJS/React/angular/Redux/Rekit/Next.js/
-* 编程语言：JavaScript/ES6/TypeScript/HTML5/CSS3/java/shell/linux
-* 前端工具：Webpack/Gulp/SaSS/LeSS
-* 版本管理、文档和自动化部署工具：Svn/Git/Travis-CI~~~~
-* 自动化测试
 
 # 自我评价
 
