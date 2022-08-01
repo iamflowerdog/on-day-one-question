@@ -13,11 +13,11 @@
 * 个人博客：https://www.sprit.vip/
 
 # 工作经历
-* <span class="size" style="font-size:16px; width: 200px; display: inline-block">2020年4月 ~ 至今</span> <span class="size" style="font-size:16px; width: 300px; display: inline-block">北京普利科技有限公司(外企)</span>    前端中级开发
+* <span class="size" style="font-size:16px; width: 200px; display: inline-block">2020年4月 ~ 至今</span> <span class="size" style="font-size:16px; width: 300px; display: inline-block">北京普利科技有限公司(外企)</span>    前端高级开发
 
 * <span class="size" style="font-size:16px; width: 200px; display: inline-block">2018年11月 ~ 2020年4月</span> <span class="size" style="font-size:16px; width: 300px; display: inline-block">北京意园创新办公服务股份有限公司</span>  前端高级开发
 
-* <span class="size" style="font-size:16px; width: 200px; display: inline-block">2017年9月 ~ 2018年10月</span> <span class="size" style="font-size:16px; width: 300px; display: inline-block">无讼网络科技有限公司</span>  前端高级开发
+* <span class="size" style="font-size:16px; width: 200px; display: inline-block">2017年9月 ~ 2018年10月</span> <span class="size" style="font-size:16px; width: 300px; display: inline-block">无讼网络科技有限公司</span>  前端中级开发
 
 # 技能清单
 
@@ -47,7 +47,7 @@
 7. 封装前端请求公用函数，Modal box、Alert、Form、穿梭框，以及全局翻译，全局skin替换。
 8. 主动提出引入自动化测试，让后端人员和我一起编写自动化项目(NetEyez Automation Test)，大大提升了项目交付质量，缩短交付时间。
 
-### EPMS项目
+### EPMS项目(楼宇管理项目)
 
 ##### 前端实现技术：Vue + webpack + iView
 
@@ -59,7 +59,7 @@
 6. 负责评价管理系统里的题库，问卷的开发。
 7. 配合移动端开发h5页面富文本编辑。
 
-### Eboss项目
+### Eboss项目(物业管理项目)
 
 ##### 前端实现技术：React + webpack + Redux + antd + Rekit + SSR
 
