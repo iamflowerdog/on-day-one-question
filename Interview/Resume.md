@@ -22,9 +22,9 @@
 # 技能清单
 
 * 前端框架：Bootstrap/VueJS/React/angular/Redux/Rekit
-* 编程语言：JavaScript/ES6/TypeScript/HTML5/CSS3/java/shell/linux
+* 编程语言：JavaScript/ES6/TypeScript/HTML5/CSS3/java/shell/linux/python
 * 前端工具：Webpack/Gulp/SaSS/LeSS
-* 版本管理、文档和自动化部署工具：jenkins/Gitlab/Svn/Git/Travis-CI
+* 版本管理、文档和自动化部署工具：jenkins/Gitlab/Svn/Git/Travis-CI/Railway/Vercel
 * 自动化测试
 
 
