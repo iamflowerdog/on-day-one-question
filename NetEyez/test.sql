@@ -11,7 +11,7 @@ INSERT INTO settings_application_protocol_dpi (name, port_range, application_cla
 VALUES ('AJP', '8009;8010', 'Web', 4, true, 1);
 
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('VIBER', '7985;7987;5242;5423;4244', 'VoIP', 6, true, 1);
+VALUES ('VIBER', '7985;7987;5242;5423;4244', 'VOIP', 6, true, 1);
 
 -- BitTorrent
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
@@ -45,7 +45,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- SIP
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('SIP', '5060;5061', 'VoIP', 6, true, 1)
+VALUES ('SIP', '5060;5061', 'VOIP', 6, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- TargusDataspeed
@@ -107,7 +107,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- H323
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('H323', '1719;1720', 'VoIP', 6, true, 1)
+VALUES ('H323', '1719;1720', 'VOIP', 6, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- SNMP
@@ -122,7 +122,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- MsSQL-TDS
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('MSSQL-TDS', '1433;1434', 'Database', 5, true, 1)
+VALUES ('MSSQL-TDS', '1433;1434', 'Database', 26, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- NetBIOS
@@ -137,12 +137,12 @@ ON CONFLICT (name) DO NOTHING;
 
 -- VHUA
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('VHUA', '58267', 'VoIP', 6, true, 1)
+VALUES ('VHUA', '58267', 'VOIP', 6, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- MongoDB
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('MONGODB', '27017', 'Database', 5, true, 1)
+VALUES ('MONGODB', '27017', 'Database', 26, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- GenshinImpact
@@ -202,7 +202,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- Redis
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('REDIS', '6379', 'Database', 5, true, 1)
+VALUES ('REDIS', '6379', 'Database', 26, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- sFlow
@@ -224,7 +224,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- PostgreSQL
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('POSTGRESQL', '5432', 'Database', 5, true, 1)
+VALUES ('POSTGRESQL', '5432', 'Database', 26, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- LLMNR
@@ -239,7 +239,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- IAX
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('IAX', '4569', 'VoIP', 6, true, 1)
+VALUES ('IAX', '4569', 'VOIP', 6, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- Diameter
@@ -259,7 +259,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- MySQL
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('MYSQL', '3306', 'Database', 5, true, 1)
+VALUES ('MYSQL', '3306', 'Database', 26, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- SAP
@@ -269,7 +269,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- Megaco
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('MEGACO', '2944', 'VoIP', 6, true, 1)
+VALUES ('MEGACO', '2944', 'VOIP', 6, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- OSPF
@@ -294,7 +294,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- CiscoSkinny
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('CISCOSKINNY', '2000', 'VoIP', 6, true, 1)
+VALUES ('CISCOSKINNY', '2000', 'VOIP', 6, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- RTMP
@@ -304,7 +304,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- Oracle
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('ORACLE', '1521', 'Database', 5, true, 1)
+VALUES ('ORACLE', '1521', 'Database', 26, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- LotusNotes
