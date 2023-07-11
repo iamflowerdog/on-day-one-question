@@ -15,7 +15,7 @@ VALUES ('VIBER', '7985;7987;5242;5423;4244', 'VoIP', 6, true, 1);
 
 -- BitTorrent
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('BITTORRENT', '6771;51413;53646', 'Download_FT', 10, true, 1)
+VALUES ('BITTORRENT', '6771;51413;53646', 'Download', 22, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- DHCP
@@ -157,7 +157,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- DNP3
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('DNP3', '20000', 'IOT_SCADA', NULL, true, 1)
+VALUES ('DNP3', '20000', 'IoT-Scada', 25, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- Dropbox
@@ -187,7 +187,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- Git
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('GIT', '9418', 'Collaborative', NULL, true, 1)
+VALUES ('GIT', '9418', 'Collaborative', 23, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- CPHA
@@ -197,7 +197,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- CHECKMK
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('CHECKMK', '6556', 'Data_Transfer', NULL, true, 1)
+VALUES ('CHECKMK', '6556', 'DataTransfer', 24, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- Redis
@@ -279,7 +279,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- IEC60870
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('IEC60870', '2404', 'IOT_SCADA', NULL, true, 1)
+VALUES ('IEC60870', '2404', 'IoT-Scada', 25, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- NetFlow
@@ -289,7 +289,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- NFS
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('NFS', '2049', 'DataTransfer', NULL, true, 1)
+VALUES ('NFS', '2049', 'DataTransfer', 24, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- CiscoSkinny
@@ -309,7 +309,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- LotusNotes
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('LOTUSNOTES', '1352', 'Collaborative', NULL, true, 1)
+VALUES ('LOTUSNOTES', '1352', 'Collaborative', 23, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- OpenVPN
@@ -340,7 +340,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- RSYNC
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('RSYNC', '873', 'Data_Transfer', NULL, true, 1)
+VALUES ('RSYNC', '873', 'DataTransfer', 24, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- DoH_DoT
@@ -361,7 +361,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- AFP
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('AFP', '548', 'Data_Transfer', NULL, true, 1)
+VALUES ('AFP', '548', 'DataTransfer', 24, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- Syslog
@@ -371,7 +371,7 @@ ON CONFLICT (name) DO NOTHING;
 
 -- Modbus
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('MODBUS', '502', 'IoT-Scada', 13, true, 1)
+VALUES ('MODBUS', '502', 'IoT-Scada', 25, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 
@@ -463,10 +463,10 @@ ON CONFLICT (name) DO NOTHING;
 
 -- FTP_CONTROL
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('FTP_CONTROL', '21', 'Download', 10, true, 1)
+VALUES ('FTP_CONTROL', '21', 'Download', 22, true, 1)
 ON CONFLICT (name) DO NOTHING;
 
 -- FTP_DATA
 INSERT INTO settings_application_protocol_dpi (name, port_range, application_class_name, application_class_id, internel, type)
-VALUES ('FTP_DATA', '20', 'Download', 10, true, 1)
+VALUES ('FTP_DATA', '20', 'Download', 22, true, 1)
 ON CONFLICT (name) DO NOTHING;
