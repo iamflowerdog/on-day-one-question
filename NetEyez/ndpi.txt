@@ -1,105 +1,107 @@
-
-VMware	UDP	902;903	RemoteAccess
-Mining	TCP	8333;30303	Mining
-HTTP_Proxy	TCP	8080;3128	Web
-AJP	TCP	8009;8010	Web
-Viber	TCP	7985;7987;5242;5423	VoIP
-Viber	TCP	7985;5242;5243;4244	VoIP
-BitTorrent	UDP	6771;51413	Download_FT
-DHCP	UDP	67;68	Network
-VNC	TCP	5900;5901;5800	Remote_Access
-COAP	UDP	5683;5684	RPC
-MDNS	UDP	5353;5354	Network
-CAPWAP	UDP	5246;5247	Network
-BitTorrent	TCP	51413;53646	Download_FT
-SIP	TCP;UDP	5060;5061	VoIP
-TargusDataspeed	TCP;UDP	5001;5201	Network
-IPsec	UDP	500;4500	VPN
-SMTPS	TCP	465;587	Email
-QUIC	UDP	443;80	Web
-LISP	UDP	4342;4341	Cloud
-Whois-DAS	TCP	43;4343	Network
-SOMEIP	UDP	30491;30501;30490	RPC
-SOMEIP	TCP	30491;30501	RPC
-GTP	UDP	2152;2123	Network
-MQTT	TCP	1883;8883	RPC
-Radius	TCP;UDP	1812;1813	Network
-BGP	TCP	179;2605	Network
-H323	TCP;UDP	1719;1720	VoIP
-SNMP	UDP	161;162	Network
-Citrix	TCP	1494;2598	Network
-MsSQL-TDS	TCP	1433;1434	Database
-NetBIOS	UDP	137;138;139	System_OS
-CiscoVPN	TCP	10000;8008;8009	VPN
-VHUA	UDP	58267	VoIP
-MongoDB	TCP	27017	Database
-GenshinImpact	UDP	22102	Game
-AmongUs	UDP	22023	Game
-DNP3	TCP	20000	IOT_SCADA
-Dropbox	UDP	17500	Cloud
-Memcached	TCP;UDP	11211	Network
-NestLogSink	TCP	11095	Cloud
-Zabbix	TCP	10050	Network
-UBNTAC2	UDP	10001	Network
-CiscoVPN	UDP	10000	VPN
-Git	TCP	9418	Collaborative
-CPHA	UDP	8116	Network
-CHECKMK	TCP	6556	Data_Transfer
-Redis	TCP	6379	Database
-sFlow	UDP	6343	Network
-RemoteScan	UDP	6078	Network
-RemoteScan	TCP	6077	Network
-TeamViewer	TCP;UDP	5938	Remote_Access
-PostgreSQL	TCP	5432	Database
-LLMNR	TCP;UDP	5355	Network
-Ayiya	UDP	5072	Network
-IAX	TCP;UDP	4569	VoIP
-Diameter	TCP	3868	Network
-WSD	UDP	3702	Network
-RDP	TCP;UDP	3389	Remote_Access
-MySQL	TCP	3306	Database
-SAP	TCP	3201	Network
-Megaco	UDP	2944	VoIP
-OSPF	TCP	2604	Network
-IEC60870	TCP	2404	IOT_SCADA
-NetFlow	UDP	2055	Network
-NFS	TCP;UDP	2049	DataTransfer
-CiscoSkinny	TCP	2000	VoIP
-RTMP	TCP	1935	Media
-Oracle	TCP	1521	Database
-LotusNotes	TCP	1352	Collaborative
-OpenVPN	TCP;UDP	1194	VPN
-Starcraft	TCP;UDP	1119	Game
-SOCKS	TCP	1080	Web
-POPS	TCP	995	Email
-IMAPS	TCP	993	Email
-VMware	TCP	903	RemoteAccess
-RSYNC	TCP	873	Data_Transfer
-DoH_DoT	TCP	853	Network
-DoH_DoT	UDP	784	Network
-TINC	TCP;UDP	655	VPN
-RTSP	TCP;UDP	554	Media
-AFP	TCP;UDP	548	Data_Transfer
-Syslog	TCP;UDP	514	System_OS
-Modbus	TCP	502	IoT-Scada
-IPsec	TCP	500	VPN
-SMBv23	TCP	445	System
-TLS	TCP	443	Web
-LDAP	TCP;UDP	389	System_OS
-Z39.50	TCP	210	Network
-IRC	TCP;UDP	194	Chat
-XDMCP	TCP;UDP	177	RemoteAccess
-IMAP	TCP	143	Email
-NetBIOS	TCP	139	System_OS
-DCE_RPC	TCP	135	RPC
-NTP	UDP	123	System_OS
-POP3	TCP	110	Email
-s7comm	TCP	102	Network
-Kerberos	TCP;UDP	88	Network
-HTTP	TCP	80	Web
-DNS	TCP;UDP	53	Network
-SMTP	TCP	25	Email
-Telnet	TCP	23	Remote_Access
-SSH	TCP	22	Remote_Access
-FTP_CONTROL	TCP	21	Download
-FTP_DATA	TCP	20	Download
+nDPI 4.0 supported protocols:
+ Id Protocol                            Layer_4  Breed                  Category
+  0 Unknown                             TCP      Unrated                Unspecified
+  1 FTP_CONTROL                         TCP      Unsafe                 Download
+  2 POP3                                TCP      Unsafe                 Email
+  3 SMTP                                TCP      Acceptable             Email
+  4 IMAP                                TCP      Unsafe                 Email
+  5 DNS                                 TCP/UDP  Acceptable             Network
+  6 IPP                                 TCP/UDP  Acceptable             System
+  7 HTTP                                TCP      Acceptable             Web
+  8 MDNS                                TCP      Acceptable             Network
+  9 NTP                                 UDP      Acceptable             System
+ 10 NetBIOS                             TCP/UDP  Acceptable             System
+ 11 NFS                                 TCP/UDP  Acceptable             DataTransfer
+ 12 SSDP                                UDP      Acceptable             System
+ 13 BGP                                 TCP      Acceptable             Network
+ 14 SNMP                                UDP      Acceptable             Network
+ 15 XDMCP                               TCP/UDP  Acceptable             RemoteAccess
+ 16 SMBv1                               TCP      Dangerous              System
+ 17 Syslog                              TCP/UDP  Acceptable             System
+ 18 DHCP                                UDP      Acceptable             Network
+ 19 PostgreSQL                          TCP      Acceptable             Database
+ 20 MySQL                               TCP      Acceptable             Database
+ 21 Hotmail                             TCP      Acceptable             Email
+ 22 Direct_Download_Link                TCP      Potentially Dangerous  Download
+ 23 POPS                                TCP      Safe                   Email
+ 24 AppleJuice                          TCP      Potentially Dangerous  Download
+ 25 DirectConnect                       TCP/UDP  Potentially Dangerous  Download
+ 26 ntop                                TCP      Safe                   Network
+ 27 COAP                                UDP      Safe                   RPC
+ 28 VMware                              UDP      Acceptable             RemoteAccess
+ 29 SMTPS                               TCP      Safe                   Email
+ 30 DTLS                                UDP      Safe                   Web
+ 31 UBNTAC2                             UDP      Safe                   Network
+ 32 Kontiki                             UDP      Potentially Dangerous  Media
+ 33 OpenFT                              TCP      Potentially Dangerous  Download
+ 34 FastTrack                           TCP      Potentially Dangerous  Download
+ 35 Gnutella                            TCP/UDP  Potentially Dangerous  Download
+ 36 eDonkey                             TCP/UDP  Unsafe                 Download
+ 37 BitTorrent                          TCP/UDP  Acceptable             Download
+ 38 SkypeCall                           TCP      Acceptable             VoIP
+ 39 Signal                              TCP      Fun                    Chat
+ 40 Memcached                           TCP/UDP  Acceptable             Network
+ 41 SMBv23                              TCP      Acceptable             System
+ 42 Mining                              UDP      Unsafe                 Mining
+ 43 NestLogSink                         TCP      Acceptable             Cloud
+ 44 Modbus                              TCP      Acceptable             IoT-Scada
+ 45 WhatsAppCall                        TCP      Acceptable             VoIP
+ 46 DataSaver                           TCP      Fun                    Web
+ 47 Xbox                                UDP      Fun                    Game
+ 48 QQ                                  UDP      Fun                    Chat
+ 49 TikTok                              TCP      Fun                    SocialNetwork
+ 50 RTSP                                TCP/UDP  Fun                    Media
+ 51 IMAPS                               TCP      Safe                   Email
+ 52 IceCast                             TCP      Fun                    Media
+ 53 CPHA                                UDP      Fun                    Network
+ 54 PPStream                            TCP/UDP  Fun                    Streaming
+ 55 Zattoo                              TCP/UDP  Fun                    Video
+ 56 ShoutCast                           TCP      Fun                    Music
+ 57 Sopcast                             TCP/UDP  Fun                    Video
+ 58 Discord                             TCP      Fun                    Collaborative
+ 59 TVUplayer                           TCP/UDP  Fun                    Video
+ 60 MongoDB                             TCP      Acceptable             Database
+ 61 QQLive                              TCP      Fun                    Video
+ 62 Thunder                             TCP/UDP  Fun                    Download
+ 63 Soulseek                            TCP      Fun                    Download
+ 64 PS_VUE                              TCP      Acceptable             Video
+ 65 IRC                                 TCP      Unsafe                 Chat
+ 66 Ayiya                               UDP      Acceptable             Network
+ 67 Jabber                              TCP/UDP  Acceptable             Web
+ 68 Nats                                TCP      Acceptable             RPC
+ 69 AmongUs                             UDP      Fun                    Game
+ 70 Yahoo                               TCP      Safe                   Web
+ 71 DisneyPlus                          TCP      Fun                    Streaming
+ 72 GooglePlus                          TCP      Fun                    SocialNetwork
+ 73 VRRP                                TCP      Acceptable             Network
+ 74 Steam                               TCP/UDP  Fun                    Game
+ 75 HalfLife2                           UDP      Fun                    Game
+ 76 WorldOfWarcraft                     TCP      Fun                    Game
+ 77 Telnet                              TCP      Unsafe                 RemoteAccess
+ 78 STUN                                UDP      Acceptable             Network
+ 79 IPsec                                        Safe                   VPN
+ 80 GRE                                          Acceptable             Network
+ 81 ICMP                                         Acceptable             Network
+ 82 IGMP                                         Acceptable             Network
+ 83 EGP                                          Acceptable             Network
+ 84 SCTP                                         Acceptable             Network
+ 85 OSPF                                         Acceptable             Network
+ 86 IP_in_IP                                     Acceptable             Network
+ 87 RTP                                 UDP      Acceptable             Media
+ 88 RDP                                 TCP      Acceptable             RemoteAccess
+ 89 VNC                                 TCP      Acceptable             RemoteAccess
+ 90 Tumblr                              TCP      Fun                    SocialNetwork
+ 91 TLS                                 TCP      Safe                   Web
+ 92 SSH                                 TCP      Acceptable             RemoteAccess
+ 93 Usenet                              TCP      Acceptable             Web
+ 94 MGCP                                UDP      Acceptable             VoIP
+ 95 IAX                                 UDP      Acceptable             VoIP
+ 96 TFTP                                UDP      Acceptable             DataTransfer
+ 97 AFP                                 TCP      Acceptable             DataTransfer
+ 98 Stealthnet                          TCP      Potentially Dangerous  Download
+ 99 Aimini                              TCP/UDP  Fun                    Download
+100 SIP                                 TCP/UDP  Acceptable             VoIP
+101 TruPhone                            TCP      Acceptable             VoIP
+102 ICMPV6                                       Acceptable             Network
+103 DHCPV6                              UDP      Acceptable             Network
+104 Armagetron                          UDP      Fun                    Game                
