@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>存储和性能计算器</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>存储和性能计算器</h1>
+    <p>本页面用于计算存储和性能需求。</p>
+    <form action="#">
+        <div class="form-group">
+            <label for="log-per-gb">日志每 GB 数量</label>
+            <input type="number" class="form-control" id="log-per-gb" placeholder="默认值：650,000">
+        </div>
+        <div class="form-group">
+            <label for="packet-per-gb">数据包每 GB 数量</label>
+            <input type="number" class="form-control" id="packet-per-gb" placeholder="默认值：35401328">
+        </div>
+        <button type="submit" class="btn btn-primary">计算</button>
+    </form>
+    <div id="results"></div>
+
+    <script>
+        function calculate() {
+            // 获取用户输入
+            const logPerGb = document.getElementById("log-per-gb").value;
+            const packetPerGb = document.getElementById("packet-per-gb").value;
+
+            // 计算存储需求
+            const storageRequirement = logPerGb * packetPerGb;
+
+            // 计算性能需求
+            const performanceRequirement = packetPerSecond / packetPerGb;
+
+            // 显示计算结果
+            const results = document.getElementById("results");
+            results.innerHTML = `
+    <p>存储需求：${storageRequirement}</p>
+    <p>性能需求：${performanceRequirement}</p>
+  `;
+        }
+
+        // 绑定事件
+        document.getElementById("submit").addEventListener("click", calculate);
+
+    </script>
+</body>
+
+
+
+</html>

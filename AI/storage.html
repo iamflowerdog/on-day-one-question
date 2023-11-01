@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage and Performance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f6f6f6;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .link-speed-module {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .link-speed,
+        .port-utilization {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .port-details {
+            margin-top: 10px;
+        }
+
+        .storage-module {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .storage-details,
+        .input-fields {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .input-fields button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-fields button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calcButton = document.querySelector('.input-fields button');
+        const packetsPerHour = 743400000;
+        const logPerHour = 13572673;
+        const packetSize = 20.999; // GB
+        const logSize = 20.999; // GB
+
+        calcButton.addEventListener('click', function () {
+            const days = document.querySelector('.days input').value;
+            const hoursPerDay = document.querySelector('.hours input').value;
+
+            const totalPackets = packetsPerHour * hoursPerDay * days;
+            const totalLogs = logPerHour * hoursPerDay * days;
+
+            const totalPacketSize = (totalPackets / packetsPerHour) * packetSize;
+            const totalLogSize = (totalLogs / logPerHour) * logSize;
+
+            const totalSize = totalPacketSize + totalLogSize;
+
+            alert(`For ${days} days and ${hoursPerDay} hours per day, the total disk size required is approximately ${totalSize.toFixed(2)} GB.`);
+        });
+    });
+
+</script>
+
+<body>
+    <h1>Storage and Performance Calculator</h1>
+    <div class="form-group">
+        <label for="benchmark">Benchmark Traffic</label>
+        <select id="benchmark">
+            <option value="benchmark1">benchmark1</option>
+            <option value="benchmark2">benchmark2</option>
+            <option value="benchmark3">benchmark3</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="logPerGB">The default number of log per GB is 650,000. Please enter your number of log/GB here if
+            different</label>
+        <input type="number" id="logPerGB" value="646342">
+    </div>
+    <div class="form-group">
+        <label for="packetPerGB">The default number of packet per GB is</label>
+        <input type="number" id="packetPerGB" value="35401328"> Packets
+    </div>
+    <div class="form-group">
+        <label for="packetsPerMinute"># packets/ Mbps in one minute is</label>
+        <input type="number" id="packetsPerMinute" value="12390"> Packets
+    </div>
+    <div class="form-group">
+        <label for="packetsPerELK">The # of packets per GB of ELK log</label>
+        <input type="number" id="packetsPerELK" value="31120"> Packets
+    </div>
+    <div class="form-group">
+        <label for="aggregationTime">Aggregation time/GB Log</label>
+        <input type="number" id="aggregationTime" value="2"> Sec
+    </div>
+
+    <div class="link-speed-module">
+        <div class="link-speed">
+            <label>Link Speed</label><br>
+            <input type="radio" id="1gbps" name="linkSpeed" value="1gbps" checked>
+            <label for="1gbps">1Gbps</label>
+
+            <input type="radio" id="4gbps" name="linkSpeed" value="4gbps">
+            <label for="4gbps">4Gbps</label>
+
+            <input type="radio" id="20gbps" name="linkSpeed" value="20gbps">
+            <label for="20gbps">20Gbps</label>
+
+            <input type="radio" id="100gbps" name="linkSpeed" value="100gbps">
+            <label for="100gbps">100Gbps</label>
+
+            <input type="radio" id="customized" name="linkSpeed" value="customized">
+            <label for="customized">Customized</label>
+        </div>
+
+        <div class="port-utilization">
+            <label>No. of ports</label>
+            <select>
+                <option value="1">1</option>
+                <!-- 这里可以添加更多的option -->
+            </select>
+
+            <div class="port-details">
+                <label>No.1 Port Utilization</label>
+                <input type="number" max="100" min="0" value="100"> <span>%</span>
+                <!-- 这里可以添加更多的端口详情 -->
+            </div>
+        </div>
+    </div>
+
+    <div class="storage-module">
+        <h2>Hourly Storage Required</h2>
+
+        <div class="storage-details">
+            <div class="packets">
+                <label># Packets / hour =</label>
+                <span>743,400,000</span>
+            </div>
+
+            <div class="packet-size">
+                <label>Disk size required for packet/hour =</label>
+                <span>20.999 GB</span>
+            </div>
+
+            <div class="aggregation-time">
+                <label>aggregation time/hour =</label>
+                <span>0.011666</span>
+            </div>
+
+            <div class="logs">
+                <label># Log / hour =</label>
+                <span>13,572,673</span>
+            </div>
+
+            <div class="log-size">
+                <label>Disk size required for log/hour =</label>
+                <span>20.999 GB</span>
+            </div>
+        </div>
+
+        <div class="input-fields">
+            <div class="days">
+                <label>How many days needed</label>
+                <input type="number" value="7">
+            </div>
+
+            <div class="hours">
+                <label>Number of hours / day</label>
+                <input type="number" value="8">
+            </div>
+
+            <button>Calculator</button>
+        </div>
+    </div>
+</body>
+
+</html>
