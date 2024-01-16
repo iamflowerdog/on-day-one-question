@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vchart.js"></script>
+
+</head>
+<body>
+    <!-- Prepare a DOM with size (width and height) for vchart, or you can specify it in the spec configuration -->
+     <div id="chart" style="width: 600px;height:400px;"></div>
+</body>
+
+<script>
+    const spec = {
+    data: [
+        {
+        id: 'barData',
+        values: [
+            { month: 'Monday', sales: 22 },
+            { month: 'Tuesday', sales: 13 },
+            { month: 'Wednesday', sales: 25 },
+            { month: 'Thursday', sales: 29 },
+            { month: 'Friday', sales: 38 }
+        ]
+        }
+    ],
+    type: 'bar',
+    xField: 'month',
+    yField: 'sales'
+    };
+
+    console.log(VChart)
+
+    // Create a vchart instance
+    const vchart = new VChart.default(spec, { dom: "chart" });    // Draw the chart
+    vchart.renderAsync();
+
+</script>
+</html>
