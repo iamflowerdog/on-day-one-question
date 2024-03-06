@@ -1,0 +1,28 @@
+{
+    "Welcome! Please note, there were some startup anomalies. Kindly report any issues.": "ようこそ！スタートアップ時にいくつかの異常がありました。問題があれば報告してください。",
+    "Only {{params}} probes can be added": "{{params}}個のプローブのみ追加できます",
+    "Only {{params}} sub capture session can be added": "{{params}}個のサブキャプチャセッションのみ追加できます",
+    "SYNESIS probe add error": "SYNESISプローブの追加エラー",
+    "SYNESIS probe update error": "SYNESISプローブの更新エラー",
+    "Failed to save filter": "フィルターの保存に失敗しました",
+    "Failed to cancel save trace": "トレースの保存をキャンセルできませんでした",
+    "File is being decoded": "ファイルがデコードされています",
+    "Someone may be working on this probe": "誰かがこのプローブで作業している可能性があります",
+    "Please ensure that the updated IP address remains within the same machine": "更新されたIPアドレスが同じマシン内に残るようにしてください",
+    "The same machine can only be added once": "同じマシンは1回しか追加できません",
+    "Root capture session cannot be deleted": "ルートキャプチャセッションは削除できません",
+    "Analysis in progress, cannot be deleted": "解析中のため、削除できません",
+    "Capture session not exist": "キャプチャセッションが存在しません",
+    "Can't access file": "ファイルにアクセスできません",
+    "Split pcapng file error": "pcapngファイルの分割エラー",
+    "Split session error": "セッションの分割エラー",
+    "Mount error": "マウントエラー",
+    "Please input {{params}}": "{{params}}を入力してください",
+    "Please select {{params}}": "{{params}}を選択してください",
+    "Proxy connections": "プロキシ接続",
+    "Proxy connections": {
+        "description": "プロキシ接続は、プロキシサーバーとクライアント間で確立される接続です。",
+        "rootCause": "プロキシ接続が高いのは、プロキシサーバーとクライアント間の接続数が、任意の1分間の間に指定された閾値を超えるためです。",
+        "solution": "プロキシ接続の高さを解決するには、サーバー設定を調整してより多くの接続を効率的に処理するか、クライアントの動作を最適化して接続数を減らすことができます。"
+      } 
+}
