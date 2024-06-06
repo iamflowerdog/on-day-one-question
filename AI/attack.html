@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attack Tree</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <style>
+        #main {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        var chartDom = document.getElementById('main');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        let symbolSize =  25;
+
+        var data = {
+            name: '192.168.1.1; EXE_Source; US-CERT; Information Leak ',
+            itemStyle: {
+                color: '#fd3995'
+            },
+            children: [
+                {
+                    name: 'HTTP, Status Code:200; URI: /elasticsearch/o*/_search;',
+                    symbolSize: 2,
+                    children: [
+                        {
+                            name: '192.168.1.8; Information Leak',
+                            symbol: 'rect',
+                            symbolSize: symbolSize,
+                            itemStyle: {
+                                color: '#ffc241'
+                            },
+                            children: [
+                               {
+                                    name: 'HTTP, Status Code:200; URI: /elasticsearch/o*/_search;',
+                                    symbolSize: 2,
+                                    children: [
+                                        { 
+                                            name: '192.168.1.100; Information Leak',
+                                            symbolSize: symbolSize,
+                                            symbol: 'rect',
+                                            itemStyle: {
+                                                color: '#ffc241'
+                                            }
+                                        },
+                                    ]
+                               },
+                               {
+                                    name: 'HTTP, Status Code:200; URI: /elasticsearch/o*/_search;',
+                                    symbolSize: 2,
+                                    children: [
+                                        { 
+                                            name: '192.168.1.101; Information Leak',
+                                            symbolSize: symbolSize,
+                                            symbol: 'rect',
+                                            itemStyle: {
+                                                color: '#ffc241'
+                                            }
+                                        },
+                                    ]
+                               },
+                               {
+                                    name: 'HTTP, Status Code:200; URI: /elasticsearch/o*/_search;',
+                                    symbolSize: 2,
+                                    children: [
+                                        { 
+                                            name: '192.168.1.102(Information Leak )',
+                                            symbol: 'rect',
+                                            symbolSize: symbolSize,
+                                            itemStyle: {
+                                                color: '#ffc241'
+                                            }
+                                        },
+                                    ]
+                               }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: 'DNS, query:aspmx.l.google.com',
+                    symbolSize: 2,
+                    children: [
+                        {
+                            name: '192.168.2.64(US-CERT)',
+                            symbol: 'rect',
+                            symbolSize: symbolSize,
+                            itemStyle: {
+                                color: '#1dc9b7'
+                            },
+                            children: [
+                                {
+                                    name: 'DNS, query:aspmx.l.google.com',
+                                    symbolSize: 2,
+                                    children: [
+                                            {
+                                            name: '192.168.2.33(US-CERT)',
+                                            symbol: 'rect',
+                                            symbolSize: symbolSize,
+                                            itemStyle: {
+                                                color: '#1dc9b7'
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: 'DNS, query:aspmx.l.google.com',
+                                    symbolSize: 2,
+                                    children: [
+                                            {
+                                            name: '192.168.2.34(US-CERT)',
+                                            symbolSize: symbolSize,
+                                            symbol: 'rect',
+                                            itemStyle: {
+                                                color: '#1dc9b7'
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: 'DNS, query:aspmx.l.google.com',
+                                    symbolSize: 2,
+                                    children: [
+                                            {
+                                            name: '192.168.2.35(US-CERT)',
+                                            symbolSize: symbolSize,
+                                            symbol: 'rect',
+                                            itemStyle: {
+                                                color: '#1dc9b7'
+                                            }
+                                        }
+                                    ]
+                                },
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: 'HTTPS, Status Code:200; Server Name: iecvlist.microsoft.com/secp',
+                    symbolSize: 2,
+                    children: [
+                        {
+                            name: '117.18.232.200; EXE_Source',
+                            symbol: 'diamond',
+                            symbolSize: 25,
+                            itemStyle: {
+                                color: '#e83e8c'
+                            }
+                        },
+                        {
+                            name: '117.18.232.201; EXE_Source',
+                            symbol: 'diamond',
+                            symbolSize: 25,
+                            itemStyle: {
+                                color: '#e83e8c'
+                            }
+                        }
+                    ]
+                    
+                }
+            ]
+        };
+
+        function formatName(name) {
+            return name.replace(/; /g, '\n');
+        }
+
+        option = {
+            title: {
+                text: 'Attack Tree'
+            },
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            textStyle: {
+                fontSize: 15,
+                fontWeight: 'bold'
+            },
+            series: [
+                {
+                    type: 'tree',
+                    data: [data],
+                    top: '1%',
+                    left: '7%',
+                    bottom: '1%',
+                    right: '20%',
+                    edgeShape: 'polyline',
+                    initialTreeDepth: 4,
+                    edgeLabel: {
+                        normal: {
+                            show: true,
+                            textStyle: {
+                                fontSize: 10
+                            },
+                            formatter: "{c}"
+                        }
+                    },
+                    symbolSize: 15,
+                    label: {
+                        position: 'left',
+                        verticalAlign: 'middle',
+                        align: 'right',
+                        
+                        formatter: function(params) {
+                            return formatName(params.name);
+                        }
+                    },
+                    leaves: {
+                        label: {
+                            position: 'right',
+                            verticalAlign: 'middle',
+                            align: 'left',
+                            fontSize: 15,
+                            formatter: function(params) {
+                                return formatName(params.name);
+                            }
+                        }
+                    },
+                    expandAndCollapse: true,
+                    animationDuration: 550,
+                    animationDurationUpdate: 750
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
