@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中点连线示例</title>
+    <style>
+        div.boxItem { 
+  display: inline-block;
+  border: 1px solid black;
+  padding: 1em;  
+  margin-right: 5em;
+  position:relative
+}
+
+.boxItem:before,
+.boxItem:after
+{
+  content:'';
+  width:5em;/* size of your margin */
+  border-bottom:1px solid;
+  position:absolute;
+  top:50%;
+
+}
+:after {
+  left:100%;
+}
+:before {
+  right:100%;
+}
+.boxItem:first-of-type:before,
+.boxItem:last-of-type:after {
+  display:none;
+}
+.myBox {
+  white-space:nowrap; 
+/* */ text-align:center;
+  }
+    </style>
+</head>
+<body>
+    <div class="myBox">
+        <div class="boxItem">1</div>
+        <div class="boxItem">2</div>
+        <div class="boxItem">3</div>
+        <div class="boxItem">4</div>
+      </div>
+      <div class="myBox">
+        <div class="boxItem">1</div>
+        <div class="boxItem">2</div>
+        <div class="boxItem">3</div>
+      </div>
+      <div class="myBox">
+        <div class="boxItem">1</div>
+        <div class="boxItem">2</div>
+      </div>
+      <div class="myBox">
+        <div class="boxItem">1</div>
+      </div>
+</body>
+</html>
