@@ -1,4 +1,4 @@
-export let EventDistributionReport = {
+export let EventDistribution = {
     hostBase: true,
     name: `EventDistribution`,
     widgetName: 'Event Distribution',
@@ -40,7 +40,7 @@ export let EventDistributionReport = {
         }
       },
       center: ['30%', '50%'],
-      radius: ["50%", '65%'],
+      radius: ["40%", '50%'],
     },
     report: {
       legend: {
@@ -52,12 +52,12 @@ export let EventDistributionReport = {
     },
     kpi: 'percentage',
     componentName: 'smart-c3-donut',
-    chartType: 'donut',
-    title: 'TopN Event Distribution',
+    chartType: 'echartDonut',
+    title: 'Top 10 Event Distribution',
     discription: '',
     legendPosition: 'right',
     showTable: true,
-    url: '/event/snort/top/5',
+    url: '/event/snort/top/10',
     tableHeader: [
       {
         title: 'Application',
@@ -86,7 +86,7 @@ export let EventDistributionReport = {
     drillDown: {
       type: "popover",
       popList: [
-        '/event'
+        // '/event'
       ]
     },
     showDetail: true,
