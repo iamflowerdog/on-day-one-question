@@ -35,3 +35,7 @@
 
 ### 4. 源码目录说明
 
+
+
+ExecStart=/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java -jar -Xmx2048m -Xms1024m -XX:+PrintGCDetails -Xloggc:/var/log/omni/web/gc.log -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/datastore/user/admin/web/Java.hprof -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=30 -XX:GCLogFileSize=10M -Dspring.profiles.active=prod elasticsearch.host=192.168.0.58 elasticsearch.nodes.ip=192.168.0.58  /opt/NetEyez/installer/web/server/omni-web-service.jar
+SuccessExitStatus=143
