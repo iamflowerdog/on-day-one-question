@@ -1,14 +1,23 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: 设置每个子文件夹中的文件数量（默认为5，可通过参数更改）
-set files_per_folder=5
-if not "%~1"=="" set files_per_folder=%~1
+
+:: 读取配置文件
+set "config_file=config.txt"
+if exist "%config_file%" (
+    for /f "tokens=1,2 delims==" %%A in (%config_file%) do (
+        if "%%A"=="files_per_folder" set files_per_folder=%%B
+    )
+) else (
+    set files_per_folder=5
+)
+
+echo 使用每个文件夹文件数: %files_per_folder%
 
 :: 获取当前目录中的文件数量（不包括批处理文件本身和 .bat 文件）
 set file_count=0
 for %%F in (*) do (
-    if /i not "%%~xF"==".bat" (
+    if /i not "%%~xF"==".bat" if /i not "%%~nxF"=="config.txt" (
         set /a file_count+=1
     )
 )
@@ -41,7 +50,7 @@ set folder_index=1
 set /a start=1
 set /a end=files_per_folder
 for %%F in (*) do (
-    if /i not "%%~xF"==".bat" (
+    if /i not "%%~xF"==".bat" if /i not "%%~nxF"=="config.txt" (
         set /a file_index+=1
         if !file_index! gtr !end! (
             set /a folder_index+=1
