@@ -1,4 +1,5 @@
 @echo off
+chcp 936 >nul  :: 设置控制台为 GBK 编码，适合中文显示
 setlocal enabledelayedexpansion
 
 :: 设置每个子文件夹中的文件数量（默认为5，可通过参数更改）
