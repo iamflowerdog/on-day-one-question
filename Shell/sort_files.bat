@@ -55,4 +55,6 @@ for %%F in (*) do (
 )
 
 echo 文件整理完成。
-pause
+@REM pause
+
+timeout /t 2 >nul
