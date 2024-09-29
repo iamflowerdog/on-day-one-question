@@ -45,6 +45,62 @@
 
 ### ES6 genarator 是干什么的？
 
+GitHub Copilot: ES6 generator 是 JavaScript 中的一种特殊函数，它可以在执行过程中暂停和恢复。它们是一种强大的工具，用于控制迭代过程的流程。
+
+Generator 函数使用 `function*` 语法进行定义，并使用 `yield` 关键字来暂停函数的执行并返回一个值。当调用 generator 函数时，它会返回一个迭代器对象，可以使用 `next()` 方法来逐步执行函数体内的代码。
+
+下面是一个简单的示例，展示了如何使用 generator 函数来生成一个简单的迭代器：
+
+```javascript
+function* myGenerator() {
+  yield 'Hello';
+  yield 'World';
+  yield '!';
+}
+
+const iterator = myGenerator();
+
+console.log(iterator.next().value); // 输出: 'Hello'
+console.log(iterator.next().value); // 输出: 'World'
+console.log(iterator.next().value); // 输出: '!'
+console.log(iterator.next().value); // 输出: undefined
+```
+
+在上面的示例中，`myGenerator` 是一个 generator 函数，它定义了一个简单的迭代器。每次调用 `iterator.next()` 方法时，函数会从上一次暂停的地方继续执行，直到遇到下一个 `yield` 关键字为止。
+
+Generator 函数的一个重要特性是它们可以无限次地生成值，而不需要事先知道要生成多少个值。这使得它们非常适合处理大量数据或需要逐步生成结果的场景。
+
+除了 `yield` 关键字，generator 函数还可以使用 `return` 关键字来结束迭代过程，并返回一个最终的值。
+
+总而言之，ES6 generator 是一种强大的工具，用于控制迭代过程的流程，并且可以逐步生成值。它们在处理异步操作、迭代大量数据或需要逐步生成结果的情况下非常有用。ES6 generator 是 JavaScript 中的一种特殊函数，它可以在执行过程中暂停和恢复。它们是一种强大的工具，用于控制迭代过程的流程。
+
+Generator 函数使用 `function*` 语法进行定义，并使用 `yield` 关键字来暂停函数的执行并返回一个值。当调用 generator 函数时，它会返回一个迭代器对象，可以使用 `next()` 方法来逐步执行函数体内的代码。
+
+下面是一个简单的示例，展示了如何使用 generator 函数来生成一个简单的迭代器：
+
+```javascript
+function* myGenerator() {
+  yield 'Hello';
+  yield 'World';
+  yield '!';
+}
+
+const iterator = myGenerator();
+
+console.log(iterator.next().value); // 输出: 'Hello'
+console.log(iterator.next().value); // 输出: 'World'
+console.log(iterator.next().value); // 输出: '!'
+console.log(iterator.next().value); // 输出: undefined
+```
+
+在上面的示例中，`myGenerator` 是一个 generator 函数，它定义了一个简单的迭代器。每次调用 `iterator.next()` 方法时，函数会从上一次暂停的地方继续执行，直到遇到下一个 `yield` 关键字为止。
+
+Generator 函数的一个重要特性是它们可以无限次地生成值，而不需要事先知道要生成多少个值。这使得它们非常适合处理大量数据或需要逐步生成结果的场景。
+
+除了 `yield` 关键字，generator 函数还可以使用 `return` 关键字来结束迭代过程，并返回一个最终的值。
+
+总而言之，ES6 generator 是一种强大的工具，用于控制迭代过程的流程，并且可以逐步生成值。它们在处理异步操作、迭代大量数据或需要逐步生成结果的情况下非常有用。
+
 
 ### 浏览器dom渲染 和 js 加载顺序
 

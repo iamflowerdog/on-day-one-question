@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Moment.js Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body>
+    <script>
+        // 给定的时间戳
+        const timestamp = "2024-07-03T16:02:04.750131";
+
+        // 使用Moment.js将时间戳解析为UTC时间
+        const utcTime = moment.utc(timestamp);
+
+        // 将UTC时间转换为浏览器本地时间
+        const localTime = utcTime.local();
+
+        // 显示转换后的本地时间
+        console.log("本地时间:", localTime.format('YYYY-MM-DD HH:mm:ss.SSS'));
+    </script>
+</body>
+</html>
