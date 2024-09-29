@@ -1,11 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: è®¾ç½®æ¯ä¸ªå­æ–‡ä»¶å¤¹ä¸­çš„æ–‡ä»¶æ•°é‡ï¼ˆé»˜è®¤ä¸º5ï¼Œå¯é€šè¿‡å‚æ•°æ›´æ”¹ï¼‰
+:: ÉèÖÃÃ¿¸ö×ÓÎÄ¼þ¼ÐÖÐµÄÎÄ¼þÊýÁ¿£¨Ä¬ÈÏÎª5£¬¿ÉÍ¨¹ý²ÎÊý¸ü¸Ä£©
 set files_per_folder=5
 if not "%~1"=="" set files_per_folder=%~1
 
-:: èŽ·å–å½“å‰ç›®å½•ä¸­çš„æ–‡ä»¶æ•°é‡ï¼ˆä¸åŒ…æ‹¬æ‰¹å¤„ç†æ–‡ä»¶æœ¬èº«å’Œ .bat æ–‡ä»¶ï¼‰
+:: »ñÈ¡µ±Ç°Ä¿Â¼ÖÐµÄÎÄ¼þÊýÁ¿£¨²»°üÀ¨Åú´¦ÀíÎÄ¼þ±¾ÉíºÍ .bat ÎÄ¼þ£©
 set file_count=0
 for %%F in (*) do (
     if /i not "%%~xF"==".bat" (
@@ -13,29 +13,29 @@ for %%F in (*) do (
     )
 )
 
-:: è®¡ç®—éœ€è¦åˆ›å»ºçš„æ–‡ä»¶å¤¹æ•°é‡
+:: ¼ÆËãÐèÒª´´½¨µÄÎÄ¼þ¼ÐÊýÁ¿
 set /a folder_count=(file_count+files_per_folder-1)/files_per_folder
 
-echo æ€»æ–‡ä»¶æ•°: %file_count%
-echo æ¯ä¸ªæ–‡ä»¶å¤¹çš„æ–‡ä»¶æ•°: %files_per_folder%
-echo å°†åˆ›å»ºçš„æ–‡ä»¶å¤¹æ•°: %folder_count%
+echo ×ÜÎÄ¼þÊý: %file_count%
+echo Ã¿¸öÎÄ¼þ¼ÐµÄÎÄ¼þÊý: %files_per_folder%
+echo ½«´´½¨µÄÎÄ¼þ¼ÐÊý: %folder_count%
 
-:: åˆ›å»ºå­æ–‡ä»¶å¤¹
+:: ´´½¨×ÓÎÄ¼þ¼Ð
 if %folder_count% gtr 0 (
     set /a start=1
     for /l %%i in (1,1,%folder_count%) do (
         set /a end=start+files_per_folder-1
         if !end! gtr %file_count% set end=%file_count%
         md "!start!-!end!"
-        echo åˆ›å»ºæ–‡ä»¶å¤¹: !start!-!end!
+        echo ´´½¨ÎÄ¼þ¼Ð: !start!-!end!
         set /a start=end+1
     )
 ) else (
-    echo æ²¡æœ‰æ–‡ä»¶éœ€è¦æ•´ç†ã€‚
+    echo Ã»ÓÐÎÄ¼þÐèÒªÕûÀí¡£
     goto :eof
 )
 
-:: ç§»åŠ¨æ–‡ä»¶åˆ°å¯¹åº”çš„å­æ–‡ä»¶å¤¹ï¼Œè·³è¿‡ .bat æ–‡ä»¶
+:: ÒÆ¶¯ÎÄ¼þµ½¶ÔÓ¦µÄ×ÓÎÄ¼þ¼Ð£¬Ìø¹ý .bat ÎÄ¼þ
 set file_index=0
 set folder_index=1
 set /a start=1
@@ -49,12 +49,12 @@ for %%F in (*) do (
             set /a end=start+files_per_folder-1
             if !end! gtr %file_count% set end=%file_count%
         )
-        echo ç§»åŠ¨æ–‡ä»¶ "%%F" åˆ°æ–‡ä»¶å¤¹ "!start!-!end!\"
+        echo ÒÆ¶¯ÎÄ¼þ "%%F" µ½ÎÄ¼þ¼Ð "!start!-!end!\"
         move "%%F" "!start!-!end!\" > nul
     )
 )
 
-echo æ–‡ä»¶æ•´ç†å®Œæˆã€‚
+echo ÎÄ¼þÕûÀíÍê³É,ÀÏÆÅÄãÕæÊÇÌ«°ôÁË£¡¸ÐÐ»ÄãÎªÅ¯Å¯µÄ¸¶³ö,¼ÓÓÍ£¡
 @REM pause
 
 timeout /t 2 >nul

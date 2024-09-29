@@ -1,25 +1,25 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: èŽ·å–å½“å‰ç›®å½•
+:: »ñÈ¡µ±Ç°Ä¿Â¼
 set "current_dir=%cd%"
 
-:: ç§»åŠ¨æ‰€æœ‰å­ç›®å½•ä¸­çš„æ–‡ä»¶åˆ°å½“å‰ç›®å½•
+:: ÒÆ¶¯ËùÓÐ×ÓÄ¿Â¼ÖÐµÄÎÄ¼þµ½µ±Ç°Ä¿Â¼
 for /d %%D in (*) do (
-    echo å¤„ç†ç›®å½• %%D
+    echo ´¦ÀíÄ¿Â¼ %%D
     for %%F in ("%%D\*") do (
-        echo ç§»åŠ¨æ–‡ä»¶ %%F åˆ° %current_dir%
+        echo ÒÆ¶¯ÎÄ¼þ %%F µ½ %current_dir%
         move "%%F" "%current_dir%" >nul
     )
 )
 
-:: åˆ é™¤æ‰€æœ‰ç©ºå­ç›®å½•
+:: É¾³ýËùÓÐ¿Õ×ÓÄ¿Â¼
 for /d %%D in (*) do (
-    echo åˆ é™¤ç©ºç›®å½• %%D
+    echo É¾³ý¿ÕÄ¿Â¼ %%D
     rmdir "%%D" >nul 2>&1
 )
 
-echo æ–‡ä»¶æ¢å¤å®Œæˆã€‚
+echo ÎÄ¼þ»Ö¸´Íê³É,ÀÏÆÅÄãÕæÊÇÌ«°ôÁË£¡¸ÐÐ»ÄãÎªÅ¯Å¯µÄ¸¶³ö,¼ÓÓÍ£¡
 @REM pause
 
 timeout /t 2 >nul
