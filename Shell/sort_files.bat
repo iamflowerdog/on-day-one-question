@@ -1,15 +1,16 @@
 @echo off
-chcp 936 >nul  :: 设置控制台为 GBK 编码，适合中文显示
 setlocal enabledelayedexpansion
 
 :: 设置每个子文件夹中的文件数量（默认为5，可通过参数更改）
 set files_per_folder=5
 if not "%~1"=="" set files_per_folder=%~1
 
-:: 获取当前目录中的文件数量（不包括批处理文件本身）
+:: 获取当前目录中的文件数量（不包括批处理文件本身和 .bat 文件）
 set file_count=0
 for %%F in (*) do (
-    if /i not "%%~nxF"=="%~nx0" set /a file_count+=1
+    if /i not "%%~xF"==".bat" (
+        set /a file_count+=1
+    )
 )
 
 :: 计算需要创建的文件夹数量
@@ -34,13 +35,13 @@ if %folder_count% gtr 0 (
     goto :eof
 )
 
-:: 移动文件到对应的子文件夹
+:: 移动文件到对应的子文件夹，跳过 .bat 文件
 set file_index=0
 set folder_index=1
 set /a start=1
 set /a end=files_per_folder
 for %%F in (*) do (
-    if /i not "%%~nxF"=="%~nx0" (
+    if /i not "%%~xF"==".bat" (
         set /a file_index+=1
         if !file_index! gtr !end! (
             set /a folder_index+=1
