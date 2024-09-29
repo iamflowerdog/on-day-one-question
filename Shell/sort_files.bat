@@ -18,6 +18,13 @@ for %%F in (*.*) do (
 
 echo 当前目录下文件总数: %file_count%
 
+:: 如果没有文件，提示错误并退出
+if %file_count%==0 (
+    echo 当前目录下没有任何文件，脚本退出
+    pause
+    exit /b
+)
+
 :: 开始按数量创建子文件夹并移动文件
 set /a folder_count=1
 set /a start_index=1
@@ -39,6 +46,7 @@ for /l %%G in (1,%files_per_folder%,%file_count%) do (
     set /a count=0
     for %%F in (*.*) do (
         if !count! geq %start_index% if !count! lss %end_index% (
+            echo 移动文件 %%F 到 %folder_name%
             move "%%F" "%folder_name%"
         )
         set /a count+=1
