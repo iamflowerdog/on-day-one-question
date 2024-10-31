@@ -82,17 +82,9 @@
     <input type="number" id="indexValue2" placeholder="值" value="2104784">
 </div>
 
-<div class="input-group">
-    <label for="index3">Index 3：</label>
-    <input type="text" id="index3" placeholder="名称" value="omni-bro-dns">
-    <input type="number" id="indexValue3" placeholder="值" value="0">
-</div>
 
-<div class="input-group">
-    <label for="index4">Index 4：</label>
-    <input type="text" id="index4" placeholder="名称" value="smb">
-    <input type="number" id="indexValue4" placeholder="值" value="44133">
-</div>
+
+
 
 <div class="input-group">
     <label for="index5">Index 5：</label>
@@ -104,6 +96,31 @@
     <label for="index6">Index 6：</label>
     <input type="text" id="index6" placeholder="名称" value="event">
     <input type="number" id="indexValue6" placeholder="值" value="755839">
+</div>
+
+<div class="input-group">
+    <label for="index7">Index 7：</label>
+    <input type="text" id="index7" placeholder="名称" value="dhcp">
+    <input type="number" id="indexValue7" placeholder="值" value="0">
+</div>
+
+<div class="input-group">
+    <label for="index8">Index 8：</label>
+    <input type="text" id="index8" placeholder="名称" value="smtp">
+    <input type="number" id="indexValue8" placeholder="值" value="0">
+</div>
+
+
+<div class="input-group">
+    <label for="index4">Index 4：</label>
+    <input type="text" id="index4" placeholder="名称" value="smb">
+    <input type="number" id="indexValue4" placeholder="值" value="44133">
+</div>
+
+<div class="input-group">
+    <label for="index3">Index 3：</label>
+    <input type="text" id="index3" placeholder="名称" value="omni-bro-dns">
+    <input type="number" id="indexValue3" placeholder="值" value="0">
 </div>
 
 <button onclick="calculateTotalLog()">计算 Total Log</button>
@@ -192,9 +209,9 @@
             dns: (parseFloat(document.getElementById("indexValue3").value) || 0),
             ssl: (parseFloat(document.getElementById("indexValue5").value) || 0),
             http: (parseFloat(document.getElementById("indexValue2").value) || 0),
-            dhcp: 0,
+            dhcp: (parseFloat(document.getElementById("indexValue7").value) || 0),
             smb: (parseFloat(document.getElementById("indexValue4").value) || 0),
-            smtp: 0,
+            smtp: (parseFloat(document.getElementById("indexValue8").value) || 0),
             event: (parseFloat(document.getElementById("indexValue6").value) || 0)
         };
 
@@ -202,9 +219,16 @@
         const logRatiosList = document.querySelector("#logRatios ul");
         logRatiosList.innerHTML = `<li>Total: ${total} (计算: ${totalIndexLog} - ${previousTotalLog} * 3)</li>`;
 
+        // Move calculations to the end
         for (const [key, value] of Object.entries(indexValues)) {
-            const ratio = (value - previousTotalLog) / total;
-            logRatiosList.innerHTML += `<li>${key}: ${value === 0 ? 0 : (ratio * 100).toFixed(2)}%</li>`;
+            let ratio;
+            if (key === 'smb' || key === 'dhcp' || key === 'smtp' || key === 'dns' || key === 'ssl') {
+                ratio = value / total; // Directly use smb input value for calculation
+                logRatiosList.innerHTML += `<li>${key}: ${value === 0 ? 0 : (ratio * 100).toFixed(2)}% (计算: ${value} / ${total})</li>`;
+            } else {
+                ratio = (value - previousTotalLog) / total; // Other calculations
+                logRatiosList.innerHTML += `<li>${key}: ${value === 0 ? 0 : (ratio * 100).toFixed(2)}% (计算: (${value} - ${previousTotalLog}) / ${total})</li>`;
+            }
         }
     }
 
