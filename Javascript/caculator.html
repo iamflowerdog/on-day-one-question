@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据输入和计算</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .input-group label {
+            display: inline-block;
+            width: 150px;
+        }
+        .input-group input {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>数据输入和计算</h1>
+
+<div class="input-group">
+    <label for="conn">conn：</label>
+    <input type="number" id="conn" value="142699025">
+</div>
+
+<div class="input-group">
+    <label for="http">http：</label>
+    <input type="number" id="http" value="2104784">
+</div>
+
+<div class="input-group">
+    <label for="dns">dns：</label>
+    <input type="number" id="dns" value="0">
+</div>
+
+<div class="input-group">
+    <label for="smb">smb：</label>
+    <input type="number" id="smb" value="44133">
+</div>
+
+<div class="input-group">
+    <label for="ssl">ssl：</label>
+    <input type="number" id="ssl" value="12761880">
+</div>
+
+<div class="input-group">
+    <label for="event">event：</label>
+    <input type="number" id="event" value="755839">
+</div>
+
+<div class="input-group">
+    <label for="exe_source">EXE_Source：</label>
+    <input type="number" id="exe_source" value="425271">
+</div>
+
+<div class="input-group">
+    <label for="remote_access">RemoteAccessService：</label>
+    <input type="number" id="remote_access" value="78865">
+</div>
+
+<div class="input-group">
+    <label for="proxy">Proxy：</label>
+    <input type="number" id="proxy" value="35759">
+</div>
+
+<div class="input-group">
+    <label for="undesirable">Undesirable：</label>
+    <input type="number" id="undesirable" value="34285">
+</div>
+
+<div class="input-group">
+    <label for="misc_activity">Misc activity：</label>
+    <input type="number" id="misc_activity" value="28056">
+</div>
+
+<div class="input-group">
+    <label for="total">total：</label>
+    <input type="number" id="total" value="158365661">
+</div>
+
+<button onclick="calculate()">计算</button>
+
+<h2>计算结果</h2>
+<div id="result"></div>
+
+<script>
+    function calculate() {
+        const conn = parseInt(document.getElementById("conn").value);
+        const http = parseInt(document.getElementById("http").value);
+        const dns = parseInt(document.getElementById("dns").value);
+        const smb = parseInt(document.getElementById("smb").value);
+        const ssl = parseInt(document.getElementById("ssl").value);
+        const event = parseInt(document.getElementById("event").value);
+        const exeSource = parseInt(document.getElementById("exe_source").value);
+        const remoteAccess = parseInt(document.getElementById("remote_access").value);
+        const proxy = parseInt(document.getElementById("proxy").value);
+        const undesirable = parseInt(document.getElementById("undesirable").value);
+        const miscActivity = parseInt(document.getElementById("misc_activity").value);
+        const total = parseInt(document.getElementById("total").value);
+
+        const topNTotal = conn + http + ssl + event + exeSource + remoteAccess + proxy + undesirable + miscActivity;
+        const remainingTotal = total - topNTotal * 3;
+        
+        const log_ratios = {
+            conn: (conn - topNTotal) / remainingTotal * 100,
+            dns: 0,
+            ssl: ssl / remainingTotal * 100,
+            http: http / remainingTotal * 100,
+            dhcp: 0,
+            smb: smb / remainingTotal * 100,
+            smtp: 0,
+            event: (event - topNTotal) / remainingTotal * 100
+        };
+
+        const sourceClassTopN = {
+            EXE_Source: `${exeSource}: ${((exeSource / topNTotal) * 100).toFixed(1)}%`,
+            RemoteAccessService: `${remoteAccess}: ${((remoteAccess / topNTotal) * 100).toFixed(1)}%`,
+            Proxy: `${proxy}: ${((proxy / topNTotal) * 100).toFixed(1)}%`,
+            Undesirable: `${undesirable}: ${((undesirable / topNTotal) * 100).toFixed(1)}%`,
+            Misc_activity: `${miscActivity}: ${((miscActivity / topNTotal) * 100).toFixed(1)}%`
+        };
+
+        document.getElementById("result").innerHTML = `
+            <p>总量：${remainingTotal}</p>
+            <p>LOG_RATIOS：</p>
+            <pre>${JSON.stringify(log_ratios, null, 2)}</pre>
+            <p>sourceClassTopN：</p>
+            <pre>${JSON.stringify(sourceClassTopN, null, 2)}</pre>
+        `;
+    }
+</script>
+
+</body>
+</html>
