@@ -7,8 +7,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
+            height: 2000px;
         }
         .input-group {
             margin-bottom: 10px;
@@ -31,30 +32,35 @@
         <label for="source1">Source Class 1：</label>
         <input type="text" id="source1" placeholder="名称" value="EXE_Source">
         <input type="number" id="value1" placeholder="值" value="425271">
+        <span id="percentage1" style="display: inline-block; margin-left: 10px;">0%</span>
     </div>
     
     <div class="input-group">
         <label for="source2">Source Class 2：</label>
         <input type="text" id="source2" placeholder="名称" value="RemoteAccessService">
         <input type="number" id="value2" placeholder="值" value="78865">
+        <span id="percentage2" style="display: inline-block; margin-left: 10px;">0%</span>
     </div>
     
     <div class="input-group">
         <label for="source3">Source Class 3：</label>
         <input type="text" id="source3" placeholder="名称" value="Proxy">
         <input type="number" id="value3" placeholder="值" value="35759">
+        <span id="percentage3" style="display: inline-block; margin-left: 10px;">0%</span>
     </div>
     
     <div class="input-group">
         <label for="source4">Source Class 4：</label>
         <input type="text" id="source4" placeholder="名称" value="Undesirable">
         <input type="number" id="value4" placeholder="值" value="34285">
+        <span id="percentage4" style="display: inline-block; margin-left: 10px;">0%</span>
     </div>
     
     <div class="input-group">
         <label for="source5">Source Class 5：</label>
         <input type="text" id="source5" placeholder="名称" value="Misc activity">
         <input type="number" id="value5" placeholder="值" value="28056">
+        <span id="percentage5" style="display: inline-block; margin-left: 10px;">0%</span>
     </div>
     
     <button onclick="calculate()">计算</button>
@@ -151,6 +157,12 @@
 
         const totalLog = sources.reduce((acc, source) => acc + source.value, 0);
 
+        // Calculate and display percentages
+        sources.forEach((source, index) => {
+            const percentage = totalLog > 0 ? (source.value / totalLog * 100).toFixed(2) : 0;
+            document.getElementById(`percentage${index + 1}`).innerText = `${percentage}%`;
+        });
+
         const sourceClass = {};
         sources.forEach(source => {
             if (source.name) {
@@ -168,14 +180,6 @@
         document.getElementById("result").innerHTML = `
             <pre>${JSON.stringify(resultJson, null, 2)}</pre>
         `;
-
-        // Calculate and display percentages
-        const percentagesDiv = document.getElementById("percentages");
-        percentagesDiv.innerHTML = ''; // Clear previous percentages
-        sources.forEach(source => {
-            const percentage = ((source.value / totalLog) * 100).toFixed(2);
-            percentagesDiv.innerHTML += `<p>${source.name}: ${percentage}%</p>`;
-        });
     }
 
     function calculateLogRatios() {
