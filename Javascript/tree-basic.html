@@ -45,6 +45,10 @@
     var ROOT_PATH = 'https://echarts.apache.org/examples';
     var option;
 
+    function formatName(name) {
+      return name.replace(/; /g, '\n');
+    }
+
     myChart.showLoading();
     setTimeout(() => {
       data = {
@@ -105,14 +109,27 @@
       }
 
       myChart.hideLoading();
-      data.children.forEach(function (datum, index) {
-        index % 2 === 0 && (datum.collapsed = true);
-      });
+      // data.children.forEach(function (datum, index) {
+      //   index % 2 === 0 && (datum.collapsed = true);
+      // });
       myChart.setOption(
         (option = {
+          title: {
+            text: 'Attack Tree',
+            show: false
+          },
           tooltip: {
             trigger: 'item',
-            triggerOn: 'mousemove'
+            triggerOn: 'mousemove',
+            // formatter: '{b}',
+            formatter: function (params) {
+              return params.data.title
+            }
+
+          },
+          textStyle: {
+            fontSize: 14,
+            fontWeight: 400
           },
           toolbox: {
             show: true,
@@ -162,28 +179,70 @@
           series: [
             {
               type: 'tree',
+              roam: 'move',
               data: [data],
               top: '1%',
-              left: '7%',
+              left: '13%',
               bottom: '1%',
+              right: '10%',
               zoom: 1,
-              right: '20%',
-              symbolSize: 7,
+              // edgeShape: 'polyline',
+              initialTreeDepth: 10,
+              edgeLabel: {
+                normal: {
+                  show: true,
+                  textStyle: {
+                    fontSize: 10
+                  },
+                  formatter: "{c}"
+                }
+              },
+              symbolSize: 15,
               label: {
-                position: 'left',
+                position: 'center',
                 verticalAlign: 'middle',
-                align: 'right',
-                fontSize: 9
+                align: 'center',
+                color: '#212529',
+                width: 200,
+                overflow: 'truncate',
+                formatter: function (params) {
+                    const color = params.data.children ? '#886ab5' : '#212529';
+                    if (!params.data.isRelated && params.data.children && params.data.children.length) {
+                        return `{color|${
+                        formatName(params.name)}}`;
+                    } else {
+                        return 
+                        formatName(params.name)
+                    }
+                },
+                rich: {
+                    color: {
+                      color: '#886ab5' // 默认颜色，可在 formatter 函数中覆盖
+                    }
+                }
               },
               leaves: {
                 label: {
-                  position: 'right',
+                  position: 'center',
                   verticalAlign: 'middle',
-                  align: 'left'
+                  align: 'center',
+                  fontSize: 15,
+                  formatter: function (params) {
+                    const color = params.data.children ? '#886ab5' : '#212529';
+                    if (!params.data.isRelated && params.data.children && params.data.children.length) {
+                        return `{color|${
+                        formatName(params.name)}}`;
+                    } else {
+                        return 
+                        formatName(params.name)
+                    }
+                },
+                rich: {
+                    color: {
+                      color: '#886ab5' // 默认颜色，可在 formatter 函数中覆盖
+                    }
+                  }
                 }
-              },
-              emphasis: {
-                focus: 'descendant'
               },
               expandAndCollapse: true,
               animationDuration: 550,
