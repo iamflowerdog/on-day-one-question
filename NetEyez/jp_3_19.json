@@ -1,5 +1,7 @@
 {
   "MONITORSETTINGS": {
+    "Release Notes": "リリースノート",
+    "Describe the additional features, changes, and known bugs in this version.": "本バージョンにおける機能の追加、変更点、既知の不具合を記載しています。",
     "NetEyez Manuals & Resource Files": "NetEyezマニュアルおよびリソースファイル",
     "Quick Start Guide": "クイックスタートガイド",
     "Linkage": "Linkage",
@@ -38,6 +40,7 @@
     "Asset Severity Customization": "アセット重大度のカスタマイズ",
     "Asset Severity Modified": "アセット重大度が変更されました",
     "Severity Level vs. AI Score": "重大度レベル VS AIスコア",
+    "There are security risk indicators that users can choose to ignore based on their specific network security requirements: source classification, Asset, Malicious IP, Domain, URL and application. Users can right-click on any risk indicators in the security event table to dismiss it. The dismissed will be saved to the settings page for future reference and can be recovered if the importance of the security risk indicators changes.": "ユーザーは、特定のネットワークセキュリティ要件に基づいて無視することができるセキュリティリスクインジケーターがあります：ソース分類、アセット、悪意のあるIP、ドメイン、URL、およびアプリケーション。 ユーザーは、セキュリティイベントテーブルのリスクインジケーターを右クリックして無視できます。 無視されたものは、将来の参照のために設定ページに保存され、セキュリティリスクインジケーターの重要性が変わった場合に回復できます。",
     "Different asset may have varying severity in different organizations based on their AI-assigned risk levels. To accommodate these differences, users can click on the severity icon and apply a different level to all instances of the same threat detected from either the asset widget on the dashboard or the security event page. Additionally, users can customize severity levels based on AI scores for all security threats of interest from the security settings page.": "重大度は組織間によって異なる場合があります。ユーザーはダッシュボードのアセットウィジェットやセキュリティイベントページで重大度アイコンをクリックし、同じ脅威に対して異なるレベルを適用できます。また、セキュリティ設定ページでは、ユーザーがAIスコアを基に、関心のあるセキュリティ脅威の重大度がカスタマイズできます。",
     "Enable Utilization Trending Chart": "使用率トレンドチャートを有効にする",
     "Enable Baseline On Trending Chart": "トレンドチャートでベースラインを有効にする",
@@ -398,6 +401,10 @@
     "Others": "その他"
   },
   "LISTTABLE": {
+    "MaliciousIP": "悪意のあるIP",
+    "Domain": "ドメイン",
+    "URL": "URL",
+    "Dismissed": "無視",
     "PermanentOverwrite": "完全に上書き",
     "EventOccuredTime": "イベント発生時刻",
     "MinumumScore": "最低スコア",
@@ -921,9 +928,9 @@
     "炒股": "株取引"
   },
   "TOASTR": {
-    "Performing the backup will save all NetEyez settings along with analyzed and historical data. However, real-time, trace files, and capture session analysis data will be stopped and will not be included in the backup.": "バックアップを実行すると、解析されたデータと履歴データを含むすべてのNetEyez設定が保存されます。ただし、リアルタイム、トレースファイル、キャプチャセッション解析データは停止され、バックアップには含まれません。",
+    "Performing the backup will save all NetEyez settings along with analyzed and historical data. However, real-time, trace files, and capture session analysis data will be stopped and will not be included in the backup.": "バックアップを実行すると、NetEyez のすべての設定情報および分析済みデータや履歴データが保存されます。ただし、リアルタイムデータ、トレースファイル、およびキャプチャセッションの解析データは停止され、バックアップには含まれません。",
     "Are you sure you want to proceed with the backup?": "バックアップを実行しますか？",
-    "Too many tasks are consuming excessive memory. Please disable some functions, such as real-time processing, capture, file analysis, session analysis, or decoding.": "多くのタスクが過剰なメモリを消費しています。リアルタイム処理、キャプチャ、ファイル解析、セッション解析、デコードなどの機能を無効にしてください。",
+    "Too many tasks are consuming excessive memory. Please disable some functions, such as real-time processing, capture, file analysis, session analysis, or decoding.": "タスクの負荷が高く、メモリの消費量が増加しています。リアルタイム処理、キャプチャ、ファイル解析、セッション解析、デコードなどの機能を無効にしてください。",
     "The file list can display up to 1,000 entries. To view more, please delete some existing files first.": "ファイルリストには最大1,000エントリまで表示できます。さらに表示するには、既存のファイルを削除してください。",
     "API Token cannot contain single quotes.": "APIトークンにシングルクォートを含めることはできません。",
     "Insufficient disk space, please clear disk space or reconfigure capture option.": "ディスク容量が不足しています。ディスク容量をクリアするか、キャプチャオプションを再設定してください。",
@@ -986,6 +993,7 @@
     "Notification setting is in use": "通知設定は使用中です",
     "The target for sending is already in use.": "送信先は既に使用中です。",
     "The file being analyzed cannot be deleted.": "解析されているファイルは削除できません。",
+    "Creation failed: The configuration named {{name}} already exists.": "作成に失敗しました：「{{name}}」という名前の設定は既に存在しています。",
     "Creation failed: The configuration named {{name}} already exists. Please use a different name.": "作成に失敗しました：「{{name}}」という名前の設定は既に存在しています。別の名前を使用してください",
     "The parameter cannot be empty": "パラメーターを空にすることはできません",
     "Please select at least one channel": "少なくとも 1 つのチャンネルを選択してください",
@@ -1154,7 +1162,7 @@
     "Invalid params. invalid date format.": "無効なパラメータ。 日付形式が無効です。",
     "There is insufficient disk space available. Please free up disk space or reconfigure the capture options.": "使用可能なディスク容量が不十分です。 ディスク容量を解放するか、キャプチャオプションを再構成してください。",
     "The time frame with data is": "データの時間枠は",
-    "Special characters and non-english language are not supported in trace file name.  Number, underscore (_) and dash (-) are ok": "トレースファイル名には、特殊文字と英語以外の言語はサポートされていません。 数字、アンダースコア（_）、ダッシュ（-）が使用できます",
+    "Filenames may contain letters, numbers, underscores (_), dashes (-), dots (.), and double-byte characters such as Japanese. Other special characters are not allowed.": "ファイル名には、文字、数字、アンダースコア (_)、ダッシュ (-)、ドット（.）、および日本語などの全角文字を含めることができます。他の特殊文字は使用できません。",
     "Special characters and non-english language are not supported in filter name.  Number, underscore (_) and dash (-) are ok": "フィルター名では、特殊文字と英語以外の言語はサポートされていません。 数字、アンダースコア (_)、ダッシュ (-) は問題ありません",
     "Modification successfully.": "変更しました",
     "Real time monitoring is disabled and no more new pCap file analysis since your storage is full. Please go to Setting->Monitor->General:Aging section to clean up some data": "ストレージがフルになったため、リアルタイムモニターが無効になり新しいpCapファイルの解析もできません。[設定]>[監視]>[一般]の[エージング]セクションに移動して、データの削除をしてください。",
@@ -1221,6 +1229,12 @@
     "Not found repository.tar.gz and backup.tar.gz under this path": "このパスの下に repository.tar.gz と backup.tar.gz が見つかりませんでした"
   },
   "ASSETBOOK": {
+    "Malicious IP": "悪意のあるIP",
+    "Domain": "ドメイン",
+    "URL": "URL",
+    "Threat": "脅威",
+    "Severity Level": "重大度レベル",
+    "Application": "アプリケーション",
     "Private Asset": "プライベートアセット",
     "External IP": "外部IP",
     "Asset with Custom IP": "カスタムIPアセット",
@@ -1362,7 +1376,8 @@
     "Round trip time for query and response": "クエリと応答のラウンドトリップ時間"
   },
   "SETTING": {
-    "Error Message Center": "エラーメッセージセンター",
+    "Threat Intelligence Update": "脅威インテリジェンスの更新",
+    "Message Center": "メッセージセンター",
     "No Messages": "メッセージなし",
     "Delete All Messages": "すべてのメッセージを削除",
     "AI-Driven Security (Beta Version)": "AI-Driven Security (ベータ版)",
@@ -1816,6 +1831,9 @@
     "Access Limitation": "接続ユーザー数"
   },
   "NAVIGATION": {
+    "Asset": "アセット",
+    "White List" : "ホワイトリスト",
+    "Risk Indicator Filter": "リスクインジケーターフィルター",
     "Severity Modified": "重大度の変更",
     "Asset with Custom IP": "カスタムIPのアセット",
     "AttackInsight AI": "アタックインサイトAI",
@@ -1882,6 +1900,7 @@
     "Log Config": "ログ設定",
     "IP Range": "IP 範囲",
     "Company Information": "企業情報",
+    "Suppress": "サプレッション",
     "Event Suppress": "イベントサプレス"
   },
   "LOADING": {

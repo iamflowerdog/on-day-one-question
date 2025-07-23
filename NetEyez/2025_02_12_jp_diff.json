@@ -1,14 +1,22 @@
 {
-    "Agreement": "契約",
-    "End User License Agreement": "エンドユーザーライセンス契約",
-    "Copyright and Trademark": "著作権・商標",
-    "Safety Instructions": "安全上の注意",
-    "Performing the backup will save all NetEyez settings along with analyzed and historical data. However, real-time, trace files, and capture session analysis data will be stopped and will not be included in the backup.": "バックアップを実行すると、解析されたデータと履歴データを含むすべてのNetEyez設定が保存されます。ただし、リアルタイム、トレースファイル、キャプチャセッション解析データは停止され、バックアップには含まれません。",
+    "Release Notes": "リリースノート",
+    "Describe the additional features, changes, and known bugs in this version.": "本バージョンにおける機能の追加、変更点、既知の不具合を記載しています。",
+    "MaliciousIP": "悪意のあるIP",
+    "Domain": "ドメイン",
+    "URL": "URL",
+    "Dismissed": "無視",
+    "Threat": "脅威",
+    "Severity Level": "重大度レベル",
+    "Application": "アプリケーション",
+    "Performing the backup will save all NetEyez settings along with analyzed and historical data. However, real-time, trace files, and capture session analysis data will be stopped and will not be included in the backup.": "バックアップを実行すると、NetEyez のすべての設定情報および分析済みデータや履歴データが保存されます。ただし、リアルタイムデータ、トレースファイル、およびキャプチャセッションの解析データは停止され、バックアップには含まれません。",
     "Are you sure you want to proceed with the backup?": "バックアップを実行しますか？",
-    "Too many tasks are consuming excessive memory. Please disable some functions, such as real-time processing, capture, file analysis, session analysis, or decoding.": "多くのタスクが過剰なメモリを消費しています。リアルタイム処理、キャプチャ、ファイル解析、セッション解析、デコードなどの機能を無効にしてください。",
-    "Error Message Center": "エラーメッセージセンター",
-    "No Messages": "メッセージなし",
-    "Delete All Messages": "すべてのメッセージを削除",
-    "AI-Driven Security (Beta Version)": "AI-Driven Security (ベータ版)",
-    "Feature Control": "機能制御"
+    "Too many tasks are consuming excessive memory. Please disable some functions, such as real-time processing, capture, file analysis, session analysis, or decoding.": "タスクの負荷が高く、メモリの消費量が増加しています。リアルタイム処理、キャプチャ、ファイル解析、セッション解析、デコードなどの機能を無効にしてください。",
+     "Creation failed: The configuration named {{name}} already exists.": "作成に失敗しました：「{{name}}」という名前の設定は既に存在しています。",
+     "Filenames may contain letters, numbers, underscores (_), dashes (-), dots (.), and double-byte characters such as Japanese. Other special characters are not allowed.": "ファイル名には、文字、数字、アンダースコア (_)、ダッシュ (-)、ドット（.）、および日本語などの全角文字を含めることができます。他の特殊文字は使用できません。",
+    "Threat Intelligence Update": "脅威インテリジェンスの更新",
+    "Asset": "アセット",
+    "White List" : "ホワイトリスト",
+    "Risk Indicator Filter": "リスクインジケーターフィルター",
+    "Suppress": "サプレッション"
+
 }
