@@ -54,6 +54,24 @@
     let eventCounter = 1;
     const ratePerHour = 280;
 
+    // 初始化预设数据
+    function initializePresetData() {
+      vipList = ['Blue', 'Guo', 'Pi', 'Eva', 'Vivian', 'Ruby'];
+      balances = {
+        'Blue': 5750.00,
+        'Guo': 5750.00,
+        'Pi': 5750.00,
+        'Eva': 5750.00,
+        'Vivian': 5750.00,
+        'Ruby': 5750.00
+      };
+    }
+
+    // 页面加载时初始化
+    window.addEventListener('DOMContentLoaded', function() {
+      initializePresetData();
+    });
+
     function initializeSession() {
       const names = document.getElementById('vipNames').value.split(',').map(n => n.trim()).filter(Boolean);
       const initial = parseFloat(document.getElementById('initialAmount').value);
@@ -83,8 +101,10 @@
       tbody.innerHTML = '';
       let total = 0;
       for (const p of vipList) {
-        total += balances[p];
-        tbody.innerHTML += `<tr><td>${p}</td><td>${balances[p].toFixed(2)}</td></tr>`;
+        if (balances[p] !== undefined && !isNaN(balances[p])) {
+          total += balances[p];
+          tbody.innerHTML += `<tr><td>${p}</td><td>${balances[p].toFixed(2)}</td></tr>`;
+        }
       }
       document.getElementById('totalBalance').innerText = `Total Remaining Balance: RMB ${total.toFixed(2)}`;
     }
@@ -104,7 +124,11 @@
       const totalCost = hours * ratePerHour;
       const costPerPerson = totalCost / allParticipants.length;
 
-      selectedVIPs.forEach(p => balances[p] -= costPerPerson);
+      selectedVIPs.forEach(p => {
+        if (balances[p] !== undefined) {
+          balances[p] -= costPerPerson;
+        }
+      });
 
       const offline = subs.map(s => `${s} pays VIPs RMB ${costPerPerson.toFixed(2)} offline`).join(', ') || '-';
 
