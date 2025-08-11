@@ -9,6 +9,7 @@
     input, button { padding: 6px; margin: 4px; }
     .btn { background-color: green; color: white; border: none; padding: 10px 20px; cursor: pointer; }
     .btn[disabled] { background-color: gray; cursor: not-allowed; }
+    .balance-amount { font-weight: bold; color: red; }
   </style>
 </head>
 <body>
@@ -31,7 +32,7 @@
     <button onclick="recordExpense()" class="btn">Record This Session</button>
 
     <h3>Current Status</h3>
-    <p id="totalBalance">Total Remaining Balance: RMB 33940.00</p>
+    <p id="totalBalance">Total Remaining Balance: <span class="balance-amount">RMB 33940.00</span></p>
     <table id="statusTable">
       <thead><tr><th>Member</th><th>Card Balance (RMB)</th><th>Points</th></tr></thead>
       <tbody id="balanceTable"><tr><td>Blue</td><td>5610.00</td><td>20</td></tr><tr><td>Guo</td><td>5750.00</td><td>0</td></tr><tr><td>Pi</td><td>5610.00</td><td>20</td></tr><tr><td>Eva</td><td>5610.00</td><td>20</td></tr><tr><td>Vivian</td><td>5750.00</td><td>0</td></tr><tr><td>Ruby</td><td>5610.00</td><td>20</td></tr></tbody>
@@ -40,9 +41,9 @@
     <h3>Expense History</h3>
     <table id="historyTable">
       <thead>
-        <tr><th>Session</th><th>Date</th><th>Hours</th><th>VIP Participants</th><th>Substitutes</th><th>Per Person Deduction (RMB)</th><th>VIP Balances (RMB)</th><th>Offline Transactions</th></tr>
+        <tr><th>Session</th><th>Date</th><th>Hours</th><th>VIP Participants</th><th>Substitutes</th><th>Per Person Deduction (RMB)</th><th>Points Earned</th><th>Offline Transactions</th></tr>
       </thead>
-      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>Blue, Pi, Eva, Ruby</td><td></td><td>140.00</td><td>5610.00/5750.00/5610.00/5610.00/5750.00/5610.00</td><td>-</td></tr></tbody>
+      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>Blue, Pi, Eva, Ruby</td><td></td><td>140.00</td><td>Blue: +20, Pi: +20, Eva: +20, Ruby: +20</td><td>-</td></tr></tbody>
     </table>
     <button onclick="exportToExcel()" class="btn">Export to Excel</button>
     <button onclick="saveHtmlFile()" class="btn">Save HTML File</button>
@@ -50,20 +51,31 @@
 
   <script>
     let balances = {};
+    let points = {}; // 新增积分跟踪
     let vipList = [];
-    let eventCounter = 1;
+    let eventCounter = 2; // 修改为2，因为HTML中显示Session #2
     const ratePerHour = 280;
+    const pointsPerHour = 10; // 每小时10积分
 
     // 初始化预设数据
     function initializePresetData() {
       vipList = ['Blue', 'Guo', 'Pi', 'Eva', 'Vivian', 'Ruby'];
       balances = {
-        'Blue': 5750.00,
-        'Guo': 5750.00,
-        'Pi': 5750.00,
-        'Eva': 5750.00,
-        'Vivian': 5750.00,
-        'Ruby': 5750.00
+        'Blue': 5610.00,   // 已参加第一场比赛，扣除140
+        'Guo': 5750.00,    // 未参加第一场比赛
+        'Pi': 5610.00,     // 已参加第一场比赛，扣除140
+        'Eva': 5610.00,    // 已参加第一场比赛，扣除140
+        'Vivian': 5750.00, // 未参加第一场比赛
+        'Ruby': 5610.00    // 已参加第一场比赛，扣除140
+      };
+      // 初始化积分，基于现有历史数据
+      points = {
+        'Blue': 20,   // 参加了第一场2小时比赛
+        'Guo': 0,
+        'Pi': 20,     // 参加了第一场2小时比赛
+        'Eva': 20,    // 参加了第一场2小时比赛
+        'Vivian': 0,
+        'Ruby': 20    // 参加了第一场2小时比赛
       };
     }
 
@@ -81,7 +93,11 @@
       }
       vipList = names;
       balances = {};
-      names.forEach(name => balances[name] = initial);
+      points = {}; // 初始化积分
+      names.forEach(name => {
+        balances[name] = initial;
+        points[name] = 0; // 初始积分为0
+      });
       updateBalanceTable();
       createVipCheckboxes();
       document.getElementById('mainSection').style.display = 'block';
@@ -103,10 +119,11 @@
       for (const p of vipList) {
         if (balances[p] !== undefined && !isNaN(balances[p])) {
           total += balances[p];
-          tbody.innerHTML += `<tr><td>${p}</td><td>${balances[p].toFixed(2)}</td></tr>`;
+          const memberPoints = points[p] || 0;
+          tbody.innerHTML += `<tr><td>${p}</td><td>${balances[p].toFixed(2)}</td><td>${memberPoints}</td></tr>`;
         }
       }
-      document.getElementById('totalBalance').innerText = `Total Remaining Balance: RMB ${total.toFixed(2)}`;
+      document.getElementById('totalBalance').innerHTML = `Total Remaining Balance: <span class="balance-amount">RMB ${total.toFixed(2)}</span>`;
     }
 
     function recordExpense() {
@@ -123,17 +140,23 @@
 
       const totalCost = hours * ratePerHour;
       const costPerPerson = totalCost / allParticipants.length;
+      const pointsEarned = hours * pointsPerHour; // 计算每人获得的积分
 
+      // 更新余额和积分
       selectedVIPs.forEach(p => {
         if (balances[p] !== undefined) {
           balances[p] -= costPerPerson;
+          points[p] = (points[p] || 0) + pointsEarned; // 增加积分
         }
       });
 
       const offline = subs.map(s => `${s} pays VIPs RMB ${costPerPerson.toFixed(2)} offline`).join(', ') || '-';
+      
+      // 生成积分记录字符串
+      const pointsRecord = selectedVIPs.map(p => `${p}: +${pointsEarned}`).join(', ') || '-';
 
       const row = document.createElement('tr');
-      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${selectedVIPs.join(', ')}</td><td>${subs.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${vipList.map(p => balances[p].toFixed(2)).join('/')}</td><td>${offline}</td>`;
+      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${selectedVIPs.join(', ')}</td><td>${subs.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${pointsRecord}</td><td>${offline}</td>`;
       document.querySelector('#historyTable tbody').appendChild(row);
 
       eventCounter++;
@@ -142,9 +165,9 @@
     }
 
     function exportToExcel() {
-      let csv = "Current VIP Status\nMember,Card Balance (RMB)\n";
+      let csv = "Current VIP Status\nMember,Card Balance (RMB),Points\n";
       vipList.forEach(name => {
-        csv += `${name},${balances[name].toFixed(2)}\n`;
+        csv += `${name},${balances[name].toFixed(2)},${points[name] || 0}\n`;
       });
       csv += "\nExpense History\n";
 
