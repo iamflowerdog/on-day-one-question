@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- saved from url=(0276)file:///Users/rubyliu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/65aa880a1a85acbe1975cd6ded770916/Message/MessageTemp/0f187609b441eaff1dd22929112856a1/OpenData/Shared%20VIP%20Card%20Expense%20Tracker%200810.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Shared VIP Card Expense Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+    input, button { padding: 6px; margin: 4px; }
+    .btn { background-color: green; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+    .btn[disabled] { background-color: gray; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <h2>Shared VIP Venue Card Tracker</h2>
+
+  <div>
+    <h3>Initialize Session</h3>
+    <label>VIP Members (comma-separated):</label><input id="vipNames" placeholder="e.g., a,b,c,d"><br>
+    <label>Initial balance per member:</label><input id="initialAmount" type="number" value="5750"><br>
+    <button id="initBtn" onclick="initializeSession()" class="btn" disabled="">Initialize</button>
+  </div>
+
+  <div id="mainSection" style="display: block;">
+    <h3>Record Expense</h3>
+    <p>Session #: <span id="eventId">2</span></p>
+    <label>Date:</label><input id="sessionDate" type="date"><br>
+    <label>Hours Used:</label><input id="hours" type="number" value="2"><br>
+    <div id="vipCheckboxes"><label>Select VIP Participants:</label><br><label><input type="checkbox" name="vipSelect" value="Blue"> Blue</label><br><label><input type="checkbox" name="vipSelect" value="Guo"> Guo</label><br><label><input type="checkbox" name="vipSelect" value="Pi"> Pi</label><br><label><input type="checkbox" name="vipSelect" value="Eva"> Eva</label><br><label><input type="checkbox" name="vipSelect" value="Vivian"> Vivian</label><br><label><input type="checkbox" name="vipSelect" value="Ruby"> Ruby</label><br></div>
+    <label>Substitute Members (comma-separated):</label><input id="substitutes" placeholder="e.g., Jia,Yi"><br>
+    <button onclick="recordExpense()" class="btn">Record This Session</button>
+
+    <h3>Current Status</h3>
+    <p id="totalBalance">Total Remaining Balance: RMB 33940.00</p>
+    <table id="statusTable">
+      <thead><tr><th>Member</th><th>Card Balance (RMB)</th><th>Points</th></tr></thead>
+      <tbody id="balanceTable"><tr><td>Blue</td><td>5610.00</td><td>20</td></tr><tr><td>Guo</td><td>5750.00</td><td>0</td></tr><tr><td>Pi</td><td>5610.00</td><td>20</td></tr><tr><td>Eva</td><td>5610.00</td><td>20</td></tr><tr><td>Vivian</td><td>5750.00</td><td>0</td></tr><tr><td>Ruby</td><td>5610.00</td><td>20</td></tr></tbody>
+    </table>
+
+    <h3>Expense History</h3>
+    <table id="historyTable">
+      <thead>
+        <tr><th>Session</th><th>Date</th><th>Hours</th><th>VIP Participants</th><th>Substitutes</th><th>Per Person Deduction (RMB)</th><th>VIP Balances (RMB)</th><th>Offline Transactions</th></tr>
+      </thead>
+      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>Blue, Pi, Eva, Ruby</td><td></td><td>140.00</td><td>5610.00/5750.00/5610.00/5610.00/5750.00/5610.00</td><td>-</td></tr></tbody>
+    </table>
+    <button onclick="exportToExcel()" class="btn">Export to Excel</button>
+    <button onclick="saveHtmlFile()" class="btn">Save HTML File</button>
+  </div>
+
+  <script>
+    let balances = {};
+    let vipList = [];
+    let eventCounter = 1;
+    const ratePerHour = 280;
+
+    // 初始化预设数据
+    function initializePresetData() {
+      vipList = ['Blue', 'Guo', 'Pi', 'Eva', 'Vivian', 'Ruby'];
+      balances = {
+        'Blue': 5750.00,
+        'Guo': 5750.00,
+        'Pi': 5750.00,
+        'Eva': 5750.00,
+        'Vivian': 5750.00,
+        'Ruby': 5750.00
+      };
+    }
+
+    // 页面加载时初始化
+    window.addEventListener('DOMContentLoaded', function() {
+      initializePresetData();
+    });
+
+    function initializeSession() {
+      const names = document.getElementById('vipNames').value.split(',').map(n => n.trim()).filter(Boolean);
+      const initial = parseFloat(document.getElementById('initialAmount').value);
+      if (names.length === 0 || isNaN(initial)) {
+        alert('Please enter valid VIP names and initial amount.');
+        return;
+      }
+      vipList = names;
+      balances = {};
+      names.forEach(name => balances[name] = initial);
+      updateBalanceTable();
+      createVipCheckboxes();
+      document.getElementById('mainSection').style.display = 'block';
+      document.getElementById('initBtn').disabled = true;
+    }
+
+    function createVipCheckboxes() {
+      const container = document.getElementById('vipCheckboxes');
+      container.innerHTML = '<label>Select VIP Participants:</label><br>';
+      vipList.forEach(name => {
+        container.innerHTML += `<label><input type="checkbox" name="vipSelect" value="${name}"> ${name}</label><br>`;
+      });
+    }
+
+    function updateBalanceTable() {
+      const tbody = document.getElementById('balanceTable');
+      tbody.innerHTML = '';
+      let total = 0;
+      for (const p of vipList) {
+        if (balances[p] !== undefined && !isNaN(balances[p])) {
+          total += balances[p];
+          tbody.innerHTML += `<tr><td>${p}</td><td>${balances[p].toFixed(2)}</td></tr>`;
+        }
+      }
+      document.getElementById('totalBalance').innerText = `Total Remaining Balance: RMB ${total.toFixed(2)}`;
+    }
+
+    function recordExpense() {
+      const date = document.getElementById('sessionDate').value;
+      const hours = parseFloat(document.getElementById('hours').value);
+      const subs = document.getElementById('substitutes').value.split(',').map(s => s.trim()).filter(Boolean);
+      const selectedVIPs = Array.from(document.querySelectorAll('input[name="vipSelect"]:checked')).map(i => i.value);
+      const allParticipants = selectedVIPs.concat(subs);
+
+      if (selectedVIPs.length === 0 || allParticipants.length === 0 || isNaN(hours) || !date) {
+        alert('Please complete all fields including date, participants, and hours.');
+        return;
+      }
+
+      const totalCost = hours * ratePerHour;
+      const costPerPerson = totalCost / allParticipants.length;
+
+      selectedVIPs.forEach(p => {
+        if (balances[p] !== undefined) {
+          balances[p] -= costPerPerson;
+        }
+      });
+
+      const offline = subs.map(s => `${s} pays VIPs RMB ${costPerPerson.toFixed(2)} offline`).join(', ') || '-';
+
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${selectedVIPs.join(', ')}</td><td>${subs.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${vipList.map(p => balances[p].toFixed(2)).join('/')}</td><td>${offline}</td>`;
+      document.querySelector('#historyTable tbody').appendChild(row);
+
+      eventCounter++;
+      document.getElementById('eventId').innerText = eventCounter;
+      updateBalanceTable();
+    }
+
+    function exportToExcel() {
+      let csv = "Current VIP Status\nMember,Card Balance (RMB)\n";
+      vipList.forEach(name => {
+        csv += `${name},${balances[name].toFixed(2)}\n`;
+      });
+      csv += "\nExpense History\n";
+
+      const headers = Array.from(document.querySelectorAll('#historyTable thead th')).map(th => th.innerText);
+      csv += headers.join(',') + "\n";
+
+      const rows = document.querySelectorAll('#historyTable tbody tr');
+      rows.forEach(row => {
+        const cols = Array.from(row.querySelectorAll('td')).map(td => td.innerText);
+        csv += cols.join(',') + "\n";
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", "vip_expense_report.csv");
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function saveHtmlFile() {
+      const html = document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'vip_tracker_snapshot.html';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body></html>
