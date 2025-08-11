@@ -27,8 +27,7 @@
     <p>Session #: <span id="eventId">2</span></p>
     <label>Date:</label><input id="sessionDate" type="date"><br>
     <label>Hours Used:</label><input id="hours" type="number" value="2"><br>
-    <div id="vipCheckboxes"><label>Select VIP Participants:</label><br><label><input type="checkbox" name="vipSelect" value="Blue"> Blue</label><br><label><input type="checkbox" name="vipSelect" value="Guo"> Guo</label><br><label><input type="checkbox" name="vipSelect" value="Pi"> Pi</label><br><label><input type="checkbox" name="vipSelect" value="Eva"> Eva</label><br><label><input type="checkbox" name="vipSelect" value="Vivian"> Vivian</label><br><label><input type="checkbox" name="vipSelect" value="Ruby"> Ruby</label><br></div>
-    <label>Substitute Members (comma-separated):</label><input id="substitutes" placeholder="e.g., Jia,Yi"><br>
+    <div id="vipCheckboxes"><label>Select VIP Participants:</label><br><label><input type="checkbox" name="vipSelect" value="Blue"> Blue</label><input type="text" id="subs_Blue" placeholder="Substitutes for Blue (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Guo"> Guo</label><input type="text" id="subs_Guo" placeholder="Substitutes for Guo (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Pi"> Pi</label><input type="text" id="subs_Pi" placeholder="Substitutes for Pi (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Eva"> Eva</label><input type="text" id="subs_Eva" placeholder="Substitutes for Eva (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Vivian"> Vivian</label><input type="text" id="subs_Vivian" placeholder="Substitutes for Vivian (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Ruby"> Ruby</label><input type="text" id="subs_Ruby" placeholder="Substitutes for Ruby (comma-separated)" style="margin-left: 10px; width: 200px;"><br></div>
     <button onclick="recordExpense()" class="btn">Record This Session</button>
 
     <h3>Current Status</h3>
@@ -108,7 +107,7 @@
       const container = document.getElementById('vipCheckboxes');
       container.innerHTML = '<label>Select VIP Participants:</label><br>';
       vipList.forEach(name => {
-        container.innerHTML += `<label><input type="checkbox" name="vipSelect" value="${name}"> ${name}</label><br>`;
+        container.innerHTML += `<label><input type="checkbox" name="vipSelect" value="${name}"> ${name}</label><input type="text" id="subs_${name}" placeholder="Substitutes for ${name} (comma-separated)" style="margin-left: 10px; width: 200px;"><br>`;
       });
     }
 
@@ -129,39 +128,76 @@
     function recordExpense() {
       const date = document.getElementById('sessionDate').value;
       const hours = parseFloat(document.getElementById('hours').value);
-      const subs = document.getElementById('substitutes').value.split(',').map(s => s.trim()).filter(Boolean);
       const selectedVIPs = Array.from(document.querySelectorAll('input[name="vipSelect"]:checked')).map(i => i.value);
-      const allParticipants = selectedVIPs.concat(subs);
+      
+      // 收集每个VIP的substitute信息
+      let allSubstitutes = [];
+      let vipSubstitutes = {};
+      vipList.forEach(vip => {
+        const subsInput = document.getElementById(`subs_${vip}`);
+        if (subsInput) {
+          const subs = subsInput.value.split(',').map(s => s.trim()).filter(Boolean);
+          if (subs.length > 0) {
+            vipSubstitutes[vip] = subs;
+            allSubstitutes = allSubstitutes.concat(subs);
+          }
+        }
+      });
 
-      if (selectedVIPs.length === 0 || allParticipants.length === 0 || isNaN(hours) || !date) {
+      // 计算所有参与者（VIP + 所有substitutes）
+      const allParticipants = selectedVIPs.concat(allSubstitutes);
+
+      if (allParticipants.length === 0 || isNaN(hours) || !date) {
         alert('Please complete all fields including date, participants, and hours.');
         return;
       }
 
       const totalCost = hours * ratePerHour;
       const costPerPerson = totalCost / allParticipants.length;
-      const pointsEarned = hours * pointsPerHour; // 计算每人获得的积分
+      const pointsPerHour = 10;
 
-      // 更新余额和积分
-      selectedVIPs.forEach(p => {
-        if (balances[p] !== undefined) {
-          balances[p] -= costPerPerson;
-          points[p] = (points[p] || 0) + pointsEarned; // 增加积分
+      // 更新VIP余额和积分
+      selectedVIPs.forEach(vip => {
+        if (balances[vip] !== undefined) {
+          balances[vip] -= costPerPerson;
+          // VIP自己参加获得积分
+          points[vip] = (points[vip] || 0) + (hours * pointsPerHour);
         }
       });
 
-      const offline = subs.map(s => `${s} pays VIPs RMB ${costPerPerson.toFixed(2)} offline`).join(', ') || '-';
-      
+      // 为带substitute的VIP增加积分
+      Object.keys(vipSubstitutes).forEach(vip => {
+        const subsCount = vipSubstitutes[vip].length;
+        const subsPoints = subsCount * hours * pointsPerHour;
+        points[vip] = (points[vip] || 0) + subsPoints;
+      });
+
       // 生成积分记录字符串
-      const pointsRecord = selectedVIPs.map(p => `${p}: +${pointsEarned}`).join(', ') || '-';
+      let pointsRecords = [];
+      selectedVIPs.forEach(vip => {
+        const vipPoints = hours * pointsPerHour;
+        pointsRecords.push(`${vip}: +${vipPoints}`);
+      });
+      Object.keys(vipSubstitutes).forEach(vip => {
+        const subsCount = vipSubstitutes[vip].length;
+        const subsPoints = subsCount * hours * pointsPerHour;
+        pointsRecords.push(`${vip} (带人): +${subsPoints}`);
+      });
+      const pointsRecord = pointsRecords.join(', ') || '-';
 
       const row = document.createElement('tr');
-      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${selectedVIPs.join(', ')}</td><td>${subs.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${pointsRecord}</td><td>${offline}</td>`;
+      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${selectedVIPs.join(', ')}</td><td>${allSubstitutes.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${pointsRecord}</td><td>-</td>`;
       document.querySelector('#historyTable tbody').appendChild(row);
 
       eventCounter++;
       document.getElementById('eventId').innerText = eventCounter;
       updateBalanceTable();
+      
+      // 清空所有substitute输入框
+      vipList.forEach(vip => {
+        const subsInput = document.getElementById(`subs_${vip}`);
+        if (subsInput) subsInput.value = '';
+      });
     }
 
     function exportToExcel() {
