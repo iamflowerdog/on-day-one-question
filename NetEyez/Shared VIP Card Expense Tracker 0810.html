@@ -58,10 +58,19 @@
     <h3>Expense History</h3>
     <table id="historyTable">
       <thead>
-        <tr><th>Session</th><th>Date</th><th>Hours</th><th>Time Period</th><th>Rate/Hour</th><th>VIP Participants</th><th>Substitutes</th><th>Per Person Deduction (RMB)</th><th>Points Earned</th><th>Offline Transactions</th></tr>
+        <tr><th>Session</th><th>Date</th><th>Hours</th><th>Time Period</th><th>Rate/Hour</th><th>VIP Participants</th><th>Per Person Deduction (RMB)</th><th>Points Earned</th><th>Offline Transactions</th></tr>
       </thead>
-      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>黄金时段</td><td>280</td><td>Blue, Pi, Eva, Ruby</td><td></td><td>140.00</td><td>Blue: +20, Pi: +20, Eva: +20, Ruby: +20</td><td>-</td></tr></tbody>
+      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>黄金时段</td><td>280</td><td>Blue, Pi, Eva, Ruby</td><td>140.00</td><td>Blue: +20, Pi: +20, Eva: +20, Ruby: +20</td><td>-</td></tr></tbody>
     </table>
+    
+    <h3>Substitutes History</h3>
+    <table id="substitutesTable">
+      <thead>
+        <tr><th>Session</th><th>Date</th><th>Substitute Name</th><th>Hours</th><th>Points Earned</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    
     <button onclick="exportToExcel()" class="btn">Export to Excel</button>
     <button onclick="saveHtmlFile()" class="btn">Save HTML File</button>
   </div>
@@ -71,6 +80,7 @@
     let points = {}; // 新增积分跟踪
     let vipList = [];
     let eventCounter = 2; // 修改为2，因为HTML中显示Session #2
+    let substitutesHistory = []; // 新增替代人员历史记录
     const pointsPerHour = 10; // 每小时10积分
 
     // 初始化预设数据
@@ -142,6 +152,16 @@
       document.getElementById('totalBalance').innerHTML = `Total Remaining Balance: <span class="balance-amount">RMB ${total.toFixed(2)}</span>`;
     }
 
+    function updateSubstitutesTable() {
+      const tbody = document.querySelector('#substitutesTable tbody');
+      tbody.innerHTML = '';
+      substitutesHistory.forEach(record => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${record.session}</td><td>${record.date}</td><td>${record.name}</td><td>${record.hours}</td><td>+${record.points}</td>`;
+        tbody.appendChild(row);
+      });
+    }
+
     function recordExpense() {
       const date = document.getElementById('sessionDate').value;
       const hours = parseFloat(document.getElementById('hours').value);
@@ -186,11 +206,31 @@
         }
       });
 
-      // 为带substitute的VIP增加积分
+      // 为带substitute的VIP扣除substitute的费用，并增加积分
       Object.keys(vipSubstitutes).forEach(vip => {
         const subsCount = vipSubstitutes[vip].length;
+        // 从VIP余额中扣除substitute的费用
+        const substituteCost = subsCount * costPerPerson;
+        if (balances[vip] !== undefined) {
+          balances[vip] -= substituteCost;
+        }
+        // VIP获得带人积分
         const subsPoints = subsCount * hours * pointsPerHour;
         points[vip] = (points[vip] || 0) + subsPoints;
+      });
+
+      // 记录替代人员的积分到substitutesHistory
+      Object.keys(vipSubstitutes).forEach(vip => {
+        vipSubstitutes[vip].forEach(substitute => {
+          const substitutePoints = hours * pointsPerHour;
+          substitutesHistory.push({
+            session: eventCounter,
+            date: date,
+            name: substitute,
+            hours: hours,
+            points: substitutePoints
+          });
+        });
       });
 
       // 生成积分记录字符串
@@ -208,8 +248,11 @@
 
       const timePeriodText = timePeriod === 'peak' ? '黄金时段' : '非黄金时段';
       const row = document.createElement('tr');
-      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${timePeriodText}</td><td>${ratePerHour}</td><td>${selectedVIPs.join(', ')}</td><td>${allSubstitutes.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${pointsRecord}</td><td>-</td>`;
+      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${timePeriodText}</td><td>${ratePerHour}</td><td>${selectedVIPs.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${pointsRecord}</td><td>-</td>`;
       document.querySelector('#historyTable tbody').appendChild(row);
+
+      // 更新替代人员表格
+      updateSubstitutesTable();
 
       eventCounter++;
       document.getElementById('eventId').innerText = eventCounter;
@@ -236,6 +279,12 @@
       rows.forEach(row => {
         const cols = Array.from(row.querySelectorAll('td')).map(td => td.innerText);
         csv += cols.join(',') + "\n";
+      });
+
+      csv += "\nSubstitutes History\n";
+      csv += "Session,Date,Substitute Name,Hours,Points Earned\n";
+      substitutesHistory.forEach(record => {
+        csv += `${record.session},${record.date},${record.name},${record.hours},+${record.points}\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
