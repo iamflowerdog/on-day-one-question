@@ -195,26 +195,38 @@
       }
 
       const totalCost = hours * ratePerHour;
-      const costPerPerson = totalCost / allParticipants.length;
+      const vipCount = selectedVIPs.length;
+      const substituteCount = allSubstitutes.length;
+      const totalParticipants = vipCount + substituteCount;
+      
+      // 总费用按总人数平分
+      const costPerPerson = totalCost / totalParticipants;
+      
+      // 替代人员的总费用由所有VIP均摊
+      const substituteTotalCost = substituteCount * costPerPerson;
+      const substituteCostPerVIP = substituteTotalCost / vipList.length; // 所有VIP均摊
+      
       const pointsPerHour = 10;
 
-      // 更新VIP余额和积分
+      // 更新所有VIP的余额（替代人员费用均摊）
+      vipList.forEach(vip => {
+        if (balances[vip] !== undefined) {
+          balances[vip] -= substituteCostPerVIP;
+        }
+      });
+
+      // 更新参与VIP的余额和积分
       selectedVIPs.forEach(vip => {
         if (balances[vip] !== undefined) {
-          balances[vip] -= costPerPerson;
+          balances[vip] -= costPerPerson; // VIP自己的那份
           // VIP自己参加获得积分
           points[vip] = (points[vip] || 0) + (hours * pointsPerHour);
         }
       });
 
-      // 为带substitute的VIP扣除substitute的费用，并增加积分
+      // 为带substitute的VIP增加积分
       Object.keys(vipSubstitutes).forEach(vip => {
         const subsCount = vipSubstitutes[vip].length;
-        // 从VIP余额中扣除substitute的费用
-        const substituteCost = subsCount * costPerPerson;
-        if (balances[vip] !== undefined) {
-          balances[vip] -= substituteCost;
-        }
         // VIP获得带人积分
         const subsPoints = subsCount * hours * pointsPerHour;
         points[vip] = (points[vip] || 0) + subsPoints;
@@ -245,13 +257,18 @@
       Object.keys(vipSubstitutes).forEach(vip => {
         const subsCount = vipSubstitutes[vip].length;
         const subsPoints = subsCount * hours * pointsPerHour;
-        pointsRecords.push(`${vip} (带人): +${subsPoints}`);
+        pointsRecords.push(`${vip} (组织人): +${subsPoints}`);
       });
       const pointsRecord = pointsRecords.join(', ') || '-';
 
+      // 计算显示的扣费信息
+      const vipCostDisplay = vipCount > 0 ? `VIP自己: ${costPerPerson.toFixed(2)}` : '';
+      const substituteCostDisplay = substituteCount > 0 ? `替代人员均摊: ${substituteCostPerVIP.toFixed(2)}` : '';
+      const costDisplay = [vipCostDisplay, substituteCostDisplay].filter(Boolean).join(', ') || '-';
+
       const timePeriodText = timePeriod === 'peak' ? '黄金时段' : '非黄金时段';
       const row = document.createElement('tr');
-      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${timePeriodText}</td><td>${ratePerHour}</td><td>${selectedVIPs.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${pointsRecord}</td><td>-</td>`;
+      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${timePeriodText}</td><td>${ratePerHour}</td><td>${selectedVIPs.join(', ')}</td><td>${costDisplay}</td><td>${pointsRecord}</td><td>-</td>`;
       document.querySelector('#historyTable tbody').appendChild(row);
 
       // 更新替代人员表格
