@@ -66,7 +66,7 @@
     <h3>Substitutes History</h3>
     <table id="substitutesTable">
       <thead>
-        <tr><th>Session</th><th>Date</th><th>Substitute Name</th><th>Hours</th><th>Points Earned</th></tr>
+        <tr><th>Substitute Name</th><th>Total Hours</th><th>Total Points</th></tr>
       </thead>
       <tbody></tbody>
     </table>
@@ -80,7 +80,7 @@
     let points = {}; // 新增积分跟踪
     let vipList = [];
     let eventCounter = 2; // 修改为2，因为HTML中显示Session #2
-    let substitutesHistory = []; // 新增替代人员历史记录
+    let substitutesTotals = {}; // 替代人员累积统计：{name: {hours: total, points: total}}
     const pointsPerHour = 10; // 每小时10积分
 
     // 初始化预设数据
@@ -155,9 +155,10 @@
     function updateSubstitutesTable() {
       const tbody = document.querySelector('#substitutesTable tbody');
       tbody.innerHTML = '';
-      substitutesHistory.forEach(record => {
+      Object.keys(substitutesTotals).forEach(name => {
+        const totals = substitutesTotals[name];
         const row = document.createElement('tr');
-        row.innerHTML = `<td>${record.session}</td><td>${record.date}</td><td>${record.name}</td><td>${record.hours}</td><td>+${record.points}</td>`;
+        row.innerHTML = `<td>${name}</td><td>${totals.hours}</td><td>${totals.points}</td>`;
         tbody.appendChild(row);
       });
     }
@@ -219,17 +220,19 @@
         points[vip] = (points[vip] || 0) + subsPoints;
       });
 
-      // 记录替代人员的积分到substitutesHistory
+      // 记录替代人员的累积统计
       Object.keys(vipSubstitutes).forEach(vip => {
         vipSubstitutes[vip].forEach(substitute => {
           const substitutePoints = hours * pointsPerHour;
-          substitutesHistory.push({
-            session: eventCounter,
-            date: date,
-            name: substitute,
-            hours: hours,
-            points: substitutePoints
-          });
+          
+          // 如果替代人员不存在，初始化
+          if (!substitutesTotals[substitute]) {
+            substitutesTotals[substitute] = { hours: 0, points: 0 };
+          }
+          
+          // 累积小时和积分
+          substitutesTotals[substitute].hours += hours;
+          substitutesTotals[substitute].points += substitutePoints;
         });
       });
 
@@ -282,9 +285,10 @@
       });
 
       csv += "\nSubstitutes History\n";
-      csv += "Session,Date,Substitute Name,Hours,Points Earned\n";
-      substitutesHistory.forEach(record => {
-        csv += `${record.session},${record.date},${record.name},${record.hours},+${record.points}\n`;
+      csv += "Substitute Name,Total Hours,Total Points\n";
+      Object.keys(substitutesTotals).forEach(name => {
+        const totals = substitutesTotals[name];
+        csv += `${name},${totals.hours},${totals.points}\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
