@@ -4,12 +4,23 @@
   
   <title>Shared VIP Card Expense Tracker</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
+    body { 
+      font-family: Arial, sans-serif; 
+      padding: 20px; 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    }
     table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
     input, button { padding: 6px; margin: 4px; }
     .btn { background-color: green; color: white; border: none; padding: 10px 20px; cursor: pointer; }
     .btn[disabled] { background-color: gray; cursor: not-allowed; }
     .balance-amount { font-weight: bold; color: red; }
+    div { width: 100%; max-width: 800px; }
+    table { width: 100%; }
+    #historyTable { width: 60vw; margin-left: calc(-50vw + 50%); max-width: none; margin: 0 auto; }
   </style>
 </head>
 <body>
@@ -27,6 +38,13 @@
     <p>Session #: <span id="eventId">2</span></p>
     <label>Date:</label><input id="sessionDate" type="date"><br>
     <label>Hours Used:</label><input id="hours" type="number" value="2"><br>
+    <div>
+      <label>Time Period:</label>
+      <input type="radio" id="peakTime" name="timePeriod" value="peak" checked>
+      <label for="peakTime">黄金时段 (280 RMB/hour)</label>
+      <input type="radio" id="offPeakTime" name="timePeriod" value="offPeak">
+      <label for="offPeakTime">非黄金时段 (190 RMB/hour)</label>
+    </div><br>
     <div id="vipCheckboxes"><label>Select VIP Participants:</label><br><label><input type="checkbox" name="vipSelect" value="Blue"> Blue</label><input type="text" id="subs_Blue" placeholder="Substitutes for Blue (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Guo"> Guo</label><input type="text" id="subs_Guo" placeholder="Substitutes for Guo (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Pi"> Pi</label><input type="text" id="subs_Pi" placeholder="Substitutes for Pi (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Eva"> Eva</label><input type="text" id="subs_Eva" placeholder="Substitutes for Eva (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Vivian"> Vivian</label><input type="text" id="subs_Vivian" placeholder="Substitutes for Vivian (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Ruby"> Ruby</label><input type="text" id="subs_Ruby" placeholder="Substitutes for Ruby (comma-separated)" style="margin-left: 10px; width: 200px;"><br></div>
     <button onclick="recordExpense()" class="btn">Record This Session</button>
 
@@ -40,9 +58,9 @@
     <h3>Expense History</h3>
     <table id="historyTable">
       <thead>
-        <tr><th>Session</th><th>Date</th><th>Hours</th><th>VIP Participants</th><th>Substitutes</th><th>Per Person Deduction (RMB)</th><th>Points Earned</th><th>Offline Transactions</th></tr>
+        <tr><th>Session</th><th>Date</th><th>Hours</th><th>Time Period</th><th>Rate/Hour</th><th>VIP Participants</th><th>Substitutes</th><th>Per Person Deduction (RMB)</th><th>Points Earned</th><th>Offline Transactions</th></tr>
       </thead>
-      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>Blue, Pi, Eva, Ruby</td><td></td><td>140.00</td><td>Blue: +20, Pi: +20, Eva: +20, Ruby: +20</td><td>-</td></tr></tbody>
+      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>黄金时段</td><td>280</td><td>Blue, Pi, Eva, Ruby</td><td></td><td>140.00</td><td>Blue: +20, Pi: +20, Eva: +20, Ruby: +20</td><td>-</td></tr></tbody>
     </table>
     <button onclick="exportToExcel()" class="btn">Export to Excel</button>
     <button onclick="saveHtmlFile()" class="btn">Save HTML File</button>
@@ -53,7 +71,6 @@
     let points = {}; // 新增积分跟踪
     let vipList = [];
     let eventCounter = 2; // 修改为2，因为HTML中显示Session #2
-    const ratePerHour = 280;
     const pointsPerHour = 10; // 每小时10积分
 
     // 初始化预设数据
@@ -130,6 +147,10 @@
       const hours = parseFloat(document.getElementById('hours').value);
       const selectedVIPs = Array.from(document.querySelectorAll('input[name="vipSelect"]:checked')).map(i => i.value);
       
+      // 获取选择的时段并设置相应费率
+      const timePeriod = document.querySelector('input[name="timePeriod"]:checked').value;
+      const ratePerHour = timePeriod === 'peak' ? 280 : 190;
+      
       // 收集每个VIP的substitute信息
       let allSubstitutes = [];
       let vipSubstitutes = {};
@@ -185,8 +206,9 @@
       });
       const pointsRecord = pointsRecords.join(', ') || '-';
 
+      const timePeriodText = timePeriod === 'peak' ? '黄金时段' : '非黄金时段';
       const row = document.createElement('tr');
-      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${selectedVIPs.join(', ')}</td><td>${allSubstitutes.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${pointsRecord}</td><td>-</td>`;
+      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${timePeriodText}</td><td>${ratePerHour}</td><td>${selectedVIPs.join(', ')}</td><td>${allSubstitutes.join(', ')}</td><td>${costPerPerson.toFixed(2)}</td><td>${pointsRecord}</td><td>-</td>`;
       document.querySelector('#historyTable tbody').appendChild(row);
 
       eventCounter++;
