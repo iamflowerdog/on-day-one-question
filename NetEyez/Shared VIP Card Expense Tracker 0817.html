@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!-- saved from url=(0276)file:///Users/rubyliu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/65aa880a1a85acbe1975cd6ded770916/Message/MessageTemp/0f187609b441eaff1dd22929112856a1/OpenData/Shared%20VIP%20Card%20Expense%20Tracker%200814.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Shared VIP Card Expense Tracker</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      padding: 20px; 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    }
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+    input, button { padding: 6px; margin: 4px; }
+    .btn { background-color: green; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+    .btn[disabled] { background-color: gray; cursor: not-allowed; }
+    .balance-amount { font-weight: bold; color: red; }
+    div { width: 100%; max-width: 800px; }
+    table { width: 100%; }
+    #historyTable { width: 60vw; margin-left: calc(-50vw + 50%); max-width: none; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <h2>Shared VIP Venue Card Tracker</h2>
+
+  <div>
+    <h3>Initialize Session</h3>
+    <label>VIP Members (comma-separated):</label><input id="vipNames" placeholder="e.g., a,b,c,d"><br>
+    <label>Initial balance per member:</label><input id="initialAmount" type="number" value="5750"><br>
+    <button id="initBtn" onclick="initializeSession()" class="btn" disabled="">Initialize</button>
+  </div>
+
+  <div id="mainSection" style="display: block;">
+    <h3>Record Expense</h3>
+    <p>Session #: <span id="eventId">3</span></p>
+    <label>Date:</label><input id="sessionDate" type="date"><br>
+    <label>Hours Used:</label><input id="hours" type="number" value="2"><br>
+    <div>
+      <label>Time Period:</label>
+      <input type="radio" id="peakTime" name="timePeriod" value="peak" checked="">
+      <label for="peakTime">黄金时段 (280 RMB/hour)</label>
+      <input type="radio" id="offPeakTime" name="timePeriod" value="offPeak">
+      <label for="offPeakTime">非黄金时段 (190 RMB/hour)</label>
+    </div><br>
+    <div id="vipCheckboxes"><label>Select VIP Participants:</label><br><label><input type="checkbox" name="vipSelect" value="Blue"> Blue</label><input type="text" id="subs_Blue" placeholder="Substitutes for Blue (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Guo"> Guo</label><input type="text" id="subs_Guo" placeholder="Substitutes for Guo (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Pi"> Pi</label><input type="text" id="subs_Pi" placeholder="Substitutes for Pi (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Eva"> Eva</label><input type="text" id="subs_Eva" placeholder="Substitutes for Eva (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Vivian"> Vivian</label><input type="text" id="subs_Vivian" placeholder="Substitutes for Vivian (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Ruby"> Ruby</label><input type="text" id="subs_Ruby" placeholder="Substitutes for Ruby (comma-separated)" style="margin-left: 10px; width: 200px;"><br></div>
+    <button onclick="recordExpense()" class="btn">Record This Session</button>
+
+    <h3>Current Status</h3>
+    <p id="totalBalance">Total Remaining Balance: <span class="balance-amount">RMB 33380.00</span></p>
+    <table id="statusTable">
+      <thead><tr><th>Member</th><th>Card Balance (RMB)</th><th>Points</th></tr></thead>
+      <tbody id="balanceTable"><tr><td>Blue</td><td>5516.67</td><td>40</td></tr><tr><td>Guo</td><td>5656.67</td><td>20</td></tr><tr><td>Pi</td><td>5516.67</td><td>40</td></tr><tr><td>Eva</td><td>5516.67</td><td>40</td></tr><tr><td>Vivian</td><td>5656.67</td><td>20</td></tr><tr><td>Ruby</td><td>5516.67</td><td>40</td></tr></tbody>
+    </table>
+
+    <h3>Expense History</h3>
+    <table id="historyTable">
+      <thead>
+        <tr><th>Session</th><th>Date</th><th>Hours</th><th>Time Period</th><th>Rate/Hour</th><th>VIP Participants</th><th>Per Person Deduction (RMB)</th><th>Points Earned</th><th>Offline Transactions</th></tr>
+      </thead>
+      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>黄金时段</td><td>280</td><td>Blue, Pi, Eva, Ruby</td><td>140.00</td><td>Blue: +20, Pi: +20, Eva: +20, Ruby: +20</td><td>-</td></tr><tr><td>2</td><td>2025-08-14</td><td>1</td><td>非黄金时段</td><td>190</td><td></td><td>替代人员均摊: 31.67</td><td>Ruby (组织人): +20</td><td>-</td></tr><tr><td>2</td><td>2025-08-17</td><td>2</td><td>黄金时段</td><td>280</td><td>Blue, Guo, Pi, Eva, Vivian, Ruby</td><td>VIP自己: 93.33</td><td>Blue: +20, Guo: +20, Pi: +20, Eva: +20, Vivian: +20, Ruby: +20</td><td>-</td></tr></tbody>
+    </table>
+    
+    <h3>Substitutes History</h3>
+    <table id="substitutesTable">
+      <thead>
+        <tr><th>Substitute Name</th><th>Total Hours</th><th>Total Points</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    
+    <button onclick="exportToExcel()" class="btn">Export to Excel</button>
+    <button onclick="saveHtmlFile()" class="btn">Save HTML File</button>
+  </div>
+
+  <script>
+    let balances = {};
+    let points = {}; // 新增积分跟踪
+    let vipList = [];
+    let eventCounter = 2; // 修改为2，因为HTML中显示Session #2
+    let substitutesTotals = {}; // 替代人员累积统计：{name: {hours: total, points: total}}
+    const pointsPerHour = 10; // 每小时10积分
+
+    // 初始化预设数据
+    function initializePresetData() {
+      vipList = ['Blue', 'Guo', 'Pi', 'Eva', 'Vivian', 'Ruby'];
+      balances = {
+        'Blue': 5610.00,   // 已参加第一场比赛，扣除140
+        'Guo': 5750.00,    // 未参加第一场比赛
+        'Pi': 5610.00,     // 已参加第一场比赛，扣除140
+        'Eva': 5610.00,    // 已参加第一场比赛，扣除140
+        'Vivian': 5750.00, // 未参加第一场比赛
+        'Ruby': 5610.00    // 已参加第一场比赛，扣除140
+      };
+      // 初始化积分，基于现有历史数据
+      points = {
+        'Blue': 20,   // 参加了第一场2小时比赛
+        'Guo': 0,
+        'Pi': 20,     // 参加了第一场2小时比赛
+        'Eva': 20,    // 参加了第一场2小时比赛
+        'Vivian': 0,
+        'Ruby': 20    // 参加了第一场2小时比赛
+      };
+    }
+
+    // 页面加载时初始化
+    window.addEventListener('DOMContentLoaded', function() {
+      initializePresetData();
+    });
+
+    function initializeSession() {
+      const names = document.getElementById('vipNames').value.split(',').map(n => n.trim()).filter(Boolean);
+      const initial = parseFloat(document.getElementById('initialAmount').value);
+      if (names.length === 0 || isNaN(initial)) {
+        alert('Please enter valid VIP names and initial amount.');
+        return;
+      }
+      vipList = names;
+      balances = {};
+      points = {}; // 初始化积分
+      names.forEach(name => {
+        balances[name] = initial;
+        points[name] = 0; // 初始积分为0
+      });
+      updateBalanceTable();
+      createVipCheckboxes();
+      document.getElementById('mainSection').style.display = 'block';
+      document.getElementById('initBtn').disabled = true;
+    }
+
+    function createVipCheckboxes() {
+      const container = document.getElementById('vipCheckboxes');
+      container.innerHTML = '<label>Select VIP Participants:</label><br>';
+      vipList.forEach(name => {
+        container.innerHTML += `<label><input type="checkbox" name="vipSelect" value="${name}"> ${name}</label><input type="text" id="subs_${name}" placeholder="Substitutes for ${name} (comma-separated)" style="margin-left: 10px; width: 200px;"><br>`;
+      });
+    }
+
+    function updateBalanceTable() {
+      const tbody = document.getElementById('balanceTable');
+      tbody.innerHTML = '';
+      let total = 0;
+      for (const p of vipList) {
+        if (balances[p] !== undefined && !isNaN(balances[p])) {
+          total += balances[p];
+          const memberPoints = points[p] || 0;
+          tbody.innerHTML += `<tr><td>${p}</td><td>${balances[p].toFixed(2)}</td><td>${memberPoints}</td></tr>`;
+        }
+      }
+      document.getElementById('totalBalance').innerHTML = `Total Remaining Balance: <span class="balance-amount">RMB ${total.toFixed(2)}</span>`;
+    }
+
+    function updateSubstitutesTable() {
+      const tbody = document.querySelector('#substitutesTable tbody');
+      tbody.innerHTML = '';
+      Object.keys(substitutesTotals).forEach(name => {
+        const totals = substitutesTotals[name];
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${name}</td><td>${totals.hours}</td><td>${totals.points}</td>`;
+        tbody.appendChild(row);
+      });
+    }
+
+    function recordExpense() {
+      const date = document.getElementById('sessionDate').value;
+      const hours = parseFloat(document.getElementById('hours').value);
+      const selectedVIPs = Array.from(document.querySelectorAll('input[name="vipSelect"]:checked')).map(i => i.value);
+      
+      // 获取选择的时段并设置相应费率
+      const timePeriod = document.querySelector('input[name="timePeriod"]:checked').value;
+      const ratePerHour = timePeriod === 'peak' ? 280 : 190;
+      
+      // 收集每个VIP的substitute信息
+      let allSubstitutes = [];
+      let vipSubstitutes = {};
+      vipList.forEach(vip => {
+        const subsInput = document.getElementById(`subs_${vip}`);
+        if (subsInput) {
+          const subs = subsInput.value.split(',').map(s => s.trim()).filter(Boolean);
+          if (subs.length > 0) {
+            vipSubstitutes[vip] = subs;
+            allSubstitutes = allSubstitutes.concat(subs);
+          }
+        }
+      });
+
+      // 计算所有参与者（VIP + 所有substitutes）
+      const allParticipants = selectedVIPs.concat(allSubstitutes);
+
+      if (allParticipants.length === 0 || isNaN(hours) || !date) {
+        alert('Please complete all fields including date, participants, and hours.');
+        return;
+      }
+
+      const totalCost = hours * ratePerHour;
+      const vipCount = selectedVIPs.length;
+      const substituteCount = allSubstitutes.length;
+      const totalParticipants = vipCount + substituteCount;
+      
+      // 总费用按总人数平分
+      const costPerPerson = totalCost / totalParticipants;
+      
+      // 替代人员的总费用由所有VIP均摊
+      const substituteTotalCost = substituteCount * costPerPerson;
+      const substituteCostPerVIP = substituteTotalCost / vipList.length; // 所有VIP均摊
+      
+      const pointsPerHour = 10;
+
+      // 更新所有VIP的余额（替代人员费用均摊）
+      vipList.forEach(vip => {
+        if (balances[vip] !== undefined) {
+          balances[vip] -= substituteCostPerVIP;
+        }
+      });
+
+      // 更新参与VIP的余额和积分
+      selectedVIPs.forEach(vip => {
+        if (balances[vip] !== undefined) {
+          balances[vip] -= costPerPerson; // VIP自己的那份
+          // VIP自己参加获得积分
+          points[vip] = (points[vip] || 0) + (hours * pointsPerHour);
+        }
+      });
+
+      // 为带substitute的VIP增加积分
+      Object.keys(vipSubstitutes).forEach(vip => {
+        const subsCount = vipSubstitutes[vip].length;
+        // VIP获得带人积分
+        const subsPoints = subsCount * hours * pointsPerHour;
+        points[vip] = (points[vip] || 0) + subsPoints;
+      });
+
+      // 记录替代人员的累积统计
+      Object.keys(vipSubstitutes).forEach(vip => {
+        vipSubstitutes[vip].forEach(substitute => {
+          const substitutePoints = hours * pointsPerHour;
+          
+          // 如果替代人员不存在，初始化
+          if (!substitutesTotals[substitute]) {
+            substitutesTotals[substitute] = { hours: 0, points: 0 };
+          }
+          
+          // 累积小时和积分
+          substitutesTotals[substitute].hours += hours;
+          substitutesTotals[substitute].points += substitutePoints;
+        });
+      });
+
+      // 生成积分记录字符串
+      let pointsRecords = [];
+      selectedVIPs.forEach(vip => {
+        const vipPoints = hours * pointsPerHour;
+        pointsRecords.push(`${vip}: +${vipPoints}`);
+      });
+      Object.keys(vipSubstitutes).forEach(vip => {
+        const subsCount = vipSubstitutes[vip].length;
+        const subsPoints = subsCount * hours * pointsPerHour;
+        pointsRecords.push(`${vip} (组织人): +${subsPoints}`);
+      });
+      const pointsRecord = pointsRecords.join(', ') || '-';
+
+      // 计算显示的扣费信息
+      const vipCostDisplay = vipCount > 0 ? `VIP自己: ${costPerPerson.toFixed(2)}` : '';
+      const substituteCostDisplay = substituteCount > 0 ? `替代人员均摊: ${substituteCostPerVIP.toFixed(2)}` : '';
+      const costDisplay = [vipCostDisplay, substituteCostDisplay].filter(Boolean).join(', ') || '-';
+
+      const timePeriodText = timePeriod === 'peak' ? '黄金时段' : '非黄金时段';
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${timePeriodText}</td><td>${ratePerHour}</td><td>${selectedVIPs.join(', ')}</td><td>${costDisplay}</td><td>${pointsRecord}</td><td>-</td>`;
+      document.querySelector('#historyTable tbody').appendChild(row);
+
+      // 更新替代人员表格
+      updateSubstitutesTable();
+
+      eventCounter++;
+      document.getElementById('eventId').innerText = eventCounter;
+      updateBalanceTable();
+      
+      // 清空所有substitute输入框
+      vipList.forEach(vip => {
+        const subsInput = document.getElementById(`subs_${vip}`);
+        if (subsInput) subsInput.value = '';
+      });
+    }
+
+    function exportToExcel() {
+      let csv = "Current VIP Status\nMember,Card Balance (RMB),Points\n";
+      vipList.forEach(name => {
+        csv += `${name},${balances[name].toFixed(2)},${points[name] || 0}\n`;
+      });
+      csv += "\nExpense History\n";
+
+      const headers = Array.from(document.querySelectorAll('#historyTable thead th')).map(th => th.innerText);
+      csv += headers.join(',') + "\n";
+
+      const rows = document.querySelectorAll('#historyTable tbody tr');
+      rows.forEach(row => {
+        const cols = Array.from(row.querySelectorAll('td')).map(td => td.innerText);
+        csv += cols.join(',') + "\n";
+      });
+
+      csv += "\nSubstitutes History\n";
+      csv += "Substitute Name,Total Hours,Total Points\n";
+      Object.keys(substitutesTotals).forEach(name => {
+        const totals = substitutesTotals[name];
+        csv += `${name},${totals.hours},${totals.points}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", "vip_expense_report.csv");
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function saveHtmlFile() {
+      const html = document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'vip_tracker_snapshot.html';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body></html>
