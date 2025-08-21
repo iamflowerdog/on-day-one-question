@@ -73,6 +73,21 @@
     
     <button onclick="exportToExcel()" class="btn">Export to Excel</button>
     <button onclick="saveHtmlFile()" class="btn">Save HTML File</button>
+
+    <h4>
+      VIP 6位会员运行规则
+      <ul>
+        <li>1. 一场一结算：每一场活动单独结算。</li>
+        <li>2. 总价：记为 X。</li>
+        <li>3. 参与人数：记为 Y（包含会员与非会员）。</li>
+        <li>4. 参与情况：</li>
+        <ul>
+          <li>非会员参与者应付：X / Y</li>
+          <li>VIP参与者应付：X / Y - X / 6</li>
+        </ul>
+        <li>5. 未参与的VIP成员：Blue 将总收入平均分配给这些未参与的VIP会员，每位未参与的VIP成员应收X/6。</li> 
+      </ul>。
+    </h4>
   </div>
 
   <script>
