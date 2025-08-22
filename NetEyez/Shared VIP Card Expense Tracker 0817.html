@@ -1,28 +1,71 @@
 <!DOCTYPE html>
 <!-- saved from url=(0276)file:///Users/rubyliu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/65aa880a1a85acbe1975cd6ded770916/Message/MessageTemp/0f187609b441eaff1dd22929112856a1/OpenData/Shared%20VIP%20Card%20Expense%20Tracker%200814.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
   <title>Shared VIP Card Expense Tracker</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      padding: 20px; 
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
       /* max-width: 1200px;  */
-      margin: 0 auto; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
-    input, button { padding: 6px; margin: 4px; }
-    .btn { background-color: green; color: white; border: none; padding: 10px 20px; cursor: pointer; }
-    .btn[disabled] { background-color: gray; cursor: not-allowed; }
-    .balance-amount { font-weight: bold; color: red; }
-    div { width: 100%; max-width: 1300px; }
-    table { width: 100%; }
-    #historyTable { margin-left: calc(-50vw + 50%); max-width: none; margin: 0 auto; }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 8px;
+    }
+
+    input,
+    button {
+      padding: 6px;
+      margin: 4px;
+    }
+
+    .btn {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    .btn[disabled] {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+
+    .balance-amount {
+      font-weight: bold;
+      color: red;
+    }
+
+    div {
+      width: 100%;
+      max-width: 1300px;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    #historyTable {
+      margin-left: calc(-50vw + 50%);
+      max-width: none;
+      margin: 0 auto;
+    }
   </style>
 </head>
+
 <body>
   <h2>Shared VIP Venue Card Tracker</h2>
 
@@ -45,32 +88,67 @@
       <input type="radio" id="offPeakTime" name="timePeriod" value="offPeak">
       <label for="offPeakTime">非黄金时段 (190 RMB/hour)</label>
     </div><br>
-    <div id="vipCheckboxes"><label>Select VIP Participants:</label><br><label><input type="checkbox" name="vipSelect" value="Blue"> Blue</label><input type="text" id="subs_Blue" placeholder="Substitutes for Blue (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Guo"> Guo</label><input type="text" id="subs_Guo" placeholder="Substitutes for Guo (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Pi"> Pi</label><input type="text" id="subs_Pi" placeholder="Substitutes for Pi (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Eva"> Eva</label><input type="text" id="subs_Eva" placeholder="Substitutes for Eva (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Vivian"> Vivian</label><input type="text" id="subs_Vivian" placeholder="Substitutes for Vivian (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Ruby"> Ruby</label><input type="text" id="subs_Ruby" placeholder="Substitutes for Ruby (comma-separated)" style="margin-left: 10px; width: 200px;"><br></div>
+    <div id="vipCheckboxes"><label>Select VIP Participants:</label><br><label><input type="checkbox" name="vipSelect"
+          value="Blue"> Blue</label><input type="text" id="subs_Blue"
+        placeholder="Substitutes for Blue (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input
+          type="checkbox" name="vipSelect" value="Guo"> Guo</label><input type="text" id="subs_Guo"
+        placeholder="Substitutes for Guo (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input
+          type="checkbox" name="vipSelect" value="Pi"> Pi</label><input type="text" id="subs_Pi"
+        placeholder="Substitutes for Pi (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input
+          type="checkbox" name="vipSelect" value="Eva"> Eva</label><input type="text" id="subs_Eva"
+        placeholder="Substitutes for Eva (comma-separated)" style="margin-left: 10px; width: 200px;"><br><label><input
+          type="checkbox" name="vipSelect" value="Vivian"> Vivian</label><input type="text" id="subs_Vivian"
+        placeholder="Substitutes for Vivian (comma-separated)"
+        style="margin-left: 10px; width: 200px;"><br><label><input type="checkbox" name="vipSelect" value="Ruby">
+        Ruby</label><input type="text" id="subs_Ruby" placeholder="Substitutes for Ruby (comma-separated)"
+        style="margin-left: 10px; width: 200px;"><br></div>
     <button onclick="recordExpense()" class="btn">Record This Session</button>
 
     <h3>Current Status</h3>
+    <p id="originalBalance">Original Balance: <span class="balance-amount">RMB 34500.00</span></p>
     <p id="totalBalance">Total Remaining Balance: <span class="balance-amount">RMB 33190.00</span></p>
     <table id="statusTable">
-      <thead><tr><th>Member</th><th>每次结算金额</th><th>Points</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Member</th>
+          <th>每次结算金额</th>
+          <th>Points</th>
+        </tr>
+      </thead>
       <tbody id="balanceTable"></tbody>
     </table>
 
     <h3>Expense History</h3>
     <table id="historyTable">
       <thead>
-        <tr><th>Session</th><th>Date</th><th>Hours</th><th>Time Period</th><th>Rate/Hour</th><th>VIP Participants</th><th>Per Person Deduction (RMB)</th><th>Points Earned</th><th>每次结算金额	</th></tr>
+        <tr>
+          <th>Session</th>
+          <th>Date</th>
+          <th>Hours</th>
+          <th>Time Period</th>
+          <th>Rate/Hour</th>
+          <th>VIP Participants</th>
+          <th>Per Person Deduction (RMB)</th>
+          <th>Points Earned</th>
+          <th>每次结算金额 </th>
+        </tr>
       </thead>
-      <tbody><tr><td>1</td><td>2025-08-10</td><td>2</td><td>黄金时段</td><td>280</td><td>Blue, Pi, Eva, Ruby</td><td>140.00</td><td>Blue: +20, Pi: +20, Eva: +20, Ruby: +20</td><td>-</td></tr><tr><td>2</td><td>2025-08-14</td><td>1</td><td>非黄金时段</td><td>190</td><td></td><td>替代人员均摊: 31.67</td><td>Ruby (组织人): +20</td><td>-</td></tr><tr><td>2</td><td>2025-08-17</td><td>2</td><td>黄金时段</td><td>280</td><td>Blue, Guo, Pi, Eva, Vivian, Ruby</td><td>VIP自己: 93.33</td><td>Blue: +20, Guo: +20, Pi: +20, Eva: +20, Vivian: +20, Ruby: +20</td><td>-</td></tr></tbody>
+      <tbody>
+      </tbody>
     </table>
-    
+
     <h3>Substitutes History</h3>
     <table id="substitutesTable">
       <thead>
-        <tr><th>Substitute Name</th><th>Total Hours</th><th>Total Points</th></tr>
+        <tr>
+          <th>Substitute Name</th>
+          <th>Total Hours</th>
+          <th>Total Points</th>
+        </tr>
       </thead>
       <tbody></tbody>
     </table>
-    
+
     <button onclick="exportToExcel()" class="btn">Export to Excel</button>
     <button onclick="saveHtmlFile()" class="btn">Save HTML File</button>
 
@@ -85,7 +163,7 @@
           <li>非会员参与者应付：X / Y</li>
           <li>VIP参与者应付：X / Y - X / 6</li>
         </ul>
-        <li>5. 未参与的VIP成员：Blue 将总收入平均分配给这些未参与的VIP会员，每位未参与的VIP成员应收X/6。</li> 
+        <li>5. 未参与的VIP成员：Blue 将总收入平均分配给这些未参与的VIP会员，每位未参与的VIP成员应收X/6。</li>
       </ul>。
     </h4>
   </div>
@@ -94,9 +172,11 @@
     let balances = {};
     let points = {}; // 新增积分跟踪
     let vipList = [];
-    let eventCounter = 2; // 修改为2，因为HTML中显示Session #2
+    let eventCounter = 1; // 修改为2，因为HTML中显示Session #2
     let substitutesTotals = {}; // 替代人员累积统计：{name: {hours: total, points: total}}
     const pointsPerHour = 10; // 每小时10积分
+
+    let originalBalance = 34500.00; // 初始总余额
 
     // 初始化预设数据
     function initializePresetData() {
@@ -111,18 +191,20 @@
       };
       // 初始化积分，基于现有历史数据
       points = {
-        'Blue': 20,   // 参加了第一场2小时比赛
+        'Blue': 0,   // 参加了第一场2小时比赛
         'Guo': 0,
-        'Pi': 20,     // 参加了第一场2小时比赛
-        'Eva': 20,    // 参加了第一场2小时比赛
+        'Pi': 0,     // 参加了第一场2小时比赛
+        'Eva': 0,    // 参加了第一场2小时比赛
         'Vivian': 0,
-        'Ruby': 20    // 参加了第一场2小时比赛
+        'Ruby': 0    // 参加了第一场2小时比赛
       };
     }
 
     // 页面加载时初始化
-    window.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('DOMContentLoaded', function () {
       initializePresetData();
+       updateBalanceTable(0);
+
     });
 
     function initializeSession() {
@@ -139,7 +221,7 @@
         balances[name] = initial;
         points[name] = 0; // 初始积分为0
       });
-      updateBalanceTable();
+      updateBalanceTable(0);
       createVipCheckboxes();
       document.getElementById('mainSection').style.display = 'block';
       document.getElementById('initBtn').disabled = true;
@@ -156,7 +238,7 @@
     // 新增：记录每次结算金额
     let lastSettlement = {};
 
-    function updateBalanceTable() {
+    function updateBalanceTable(totalCost) {
       const tbody = document.getElementById('balanceTable');
       tbody.innerHTML = '';
       let total = 0;
@@ -180,7 +262,9 @@
           tbody.innerHTML += `<tr><td>${p}</td><td>${settlementStr}</td><td>${memberPoints}</td></tr>`;
         }
       }
-      document.getElementById('totalBalance').innerHTML = `Total Remaining Balance: <span class="balance-amount">RMB ${total.toFixed(2)}</span>`;
+      console.log(originalBalance, totalCost, total);
+      document.getElementById('totalBalance').innerHTML = `Total Remaining Balance: <span class="balance-amount">RMB ${originalBalance - totalCost}</span>`;
+      document.getElementById('originalBalance').innerHTML = `Original Balance: <span class="balance-amount">RMB ${originalBalance.toFixed(2)}</span>`;
     }
 
     function updateSubstitutesTable() {
@@ -277,7 +361,7 @@
 
       eventCounter++;
       document.getElementById('eventId').innerText = eventCounter;
-      updateBalanceTable();
+      updateBalanceTable(totalCost);
       // ...existing code...
     }
 
@@ -329,4 +413,6 @@
     }
   </script>
 
-</body></html>
+</body>
+
+</html>
