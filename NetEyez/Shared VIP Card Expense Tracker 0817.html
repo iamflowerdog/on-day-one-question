@@ -73,7 +73,7 @@
     <h3>Initialize Session</h3>
     <label>VIP Members (comma-separated):</label><input id="vipNames" placeholder="e.g., a,b,c,d"><br>
     <label>Initial balance per member:</label><input id="initialAmount" type="number" value="5750"><br>
-    <button id="initBtn" onclick="initializeSession()" class="btn" disabled="">Initialize</button>
+    <button id="initBtn" onclick="initializeSession()" class="btn">Initialize</button>
   </div>
 
   <div id="mainSection" style="display: block;">
@@ -204,8 +204,11 @@
 
     // 页面加载时初始化
     window.addEventListener('DOMContentLoaded', function () {
-      initializePresetData();
-       updateBalanceTable(0);
+  initializePresetData();
+  updateBalanceTable(0);
+  // 默认选中当天日期
+  var today = new Date().toISOString().slice(0, 10);
+  document.getElementById('sessionDate').value = today;
 
     });
 
@@ -293,7 +296,7 @@
       // 收集每个VIP的substitute信息（暂不处理substitute，按VIP结算规则）
       // ...existing code...
 
-      if (selectedVIPs.length === 0 || isNaN(hours) || !date) {
+      if ( isNaN(hours) || !date) {
         alert('请填写完整日期、参与VIP和小时数。');
         return;
       }
