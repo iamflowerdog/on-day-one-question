@@ -78,7 +78,7 @@
 
   <div id="mainSection" style="display: block;">
     <h3>Record Expense</h3>
-    <p>Session #: <span id="eventId">3</span></p>
+    <p>Session #: <span id="eventId">1</span></p>
     <label>Date:</label><input id="sessionDate" type="date"><br>
     <label>Hours Used:</label><input id="hours" type="number" value="2"><br>
     <div>
@@ -131,6 +131,7 @@
           <th>Per Person Deduction (RMB)</th>
           <th>Points Earned</th>
           <th>每次结算金额 </th>
+          <th>当前余额</th>
         </tr>
       </thead>
       <tbody>
@@ -177,6 +178,7 @@
     const pointsPerHour = 10; // 每小时10积分
 
     let originalBalance = 34500.00; // 初始总余额
+    let currentBalance = 34500.00; // 当前余额
 
     // 初始化预设数据
     function initializePresetData() {
@@ -263,7 +265,8 @@
         }
       }
       console.log(originalBalance, totalCost, total);
-      document.getElementById('totalBalance').innerHTML = `Total Remaining Balance: <span class="balance-amount">RMB ${originalBalance - totalCost}</span>`;
+      
+      document.getElementById('totalBalance').innerHTML = `Total Remaining Balance: <span class="balance-amount">RMB ${currentBalance}</span>`;
       document.getElementById('originalBalance').innerHTML = `Original Balance: <span class="balance-amount">RMB ${originalBalance.toFixed(2)}</span>`;
     }
 
@@ -304,6 +307,8 @@
       const notInvolvedGet = totalCost / allVIPCount;
       // 参与VIP每人应付 totalCost / vipCount - totalCost / allVIPCount
       const involvedPay = totalCost / vipCount - notInvolvedGet;
+
+      currentBalance = currentBalance - totalCost;
 
       // 记录每次结算金额
       lastSettlement = {};
@@ -356,7 +361,18 @@
       }).join(', ');
 
       const row = document.createElement('tr');
-      row.innerHTML = `<td>${eventCounter}</td><td>${date}</td><td>${hours}</td><td>${timePeriodText}</td><td>${ratePerHour}</td><td>${selectedVIPs.join(', ')}</td><td>${costDisplay}</td><td>${pointsRecord}</td><td>${settlementResults}</td>`;
+      row.innerHTML = `
+      <td>${eventCounter}</td>
+      <td>${date}</td>
+      <td>${hours}</td>
+      <td>${timePeriodText}</td>
+      <td>${ratePerHour}</td>
+      <td>${selectedVIPs.join(', ')}</td>
+      <td>${costDisplay}</td>
+      <td>${pointsRecord}</td>
+      <td>${settlementResults}</td>
+      <td>RMB ${currentBalance.toFixed(2)}</td>
+      `;
       document.querySelector('#historyTable tbody').appendChild(row);
 
       eventCounter++;
