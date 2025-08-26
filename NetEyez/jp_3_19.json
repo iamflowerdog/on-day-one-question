@@ -215,6 +215,7 @@
     "Alarm Host": "アラームホスト"
   },
   "DASHBOARD": {
+    "Config": "設定",
     "TopN Event Distribution": "トップNイベント分布",
     "Application Health": "アプリケーションヘルス",
     "Overview": "概要",
@@ -401,6 +402,8 @@
     "Others": "その他"
   },
   "LISTTABLE": {
+    "Icon": "アイコン",
+    "Link": "リンク",
     "MaliciousIP": "悪意のあるIP",
     "Domain": "ドメイン",
     "URL": "URL",
@@ -928,6 +931,7 @@
     "炒股": "株取引"
   },
   "TOASTR": {
+    "This IP already exists in the Asset. Please go to the Asset list to modify it, or overwrite the IP that already exists in the Asset. Are you sure you want to overwrite it?": "このIPはすでにアセットに存在します。アセットリストに移動して変更するか、アセットにすでに存在するIPを上書きしますか？",
     "Performing the backup will save all NetEyez settings along with analyzed and historical data. However, real-time, trace files, and capture session analysis data will be stopped and will not be included in the backup.": "バックアップを実行すると、NetEyez のすべての設定情報および分析済みデータや履歴データが保存されます。ただし、リアルタイムデータ、トレースファイル、およびキャプチャセッションの解析データは停止され、バックアップには含まれません。",
     "Are you sure you want to proceed with the backup?": "バックアップを実行しますか？",
     "Too many tasks are consuming excessive memory. Please disable some functions, such as real-time processing, capture, file analysis, session analysis, or decoding.": "タスクの負荷が高く、メモリの消費量が増加しています。リアルタイム処理、キャプチャ、ファイル解析、セッション解析、デコードなどの機能を無効にしてください。",
@@ -1162,7 +1166,7 @@
     "Invalid params. invalid date format.": "無効なパラメータ。 日付形式が無効です。",
     "There is insufficient disk space available. Please free up disk space or reconfigure the capture options.": "使用可能なディスク容量が不十分です。 ディスク容量を解放するか、キャプチャオプションを再構成してください。",
     "The time frame with data is": "データの時間枠は",
-    "Filenames may contain letters, numbers, underscores (_), dashes (-), dots (.), and double-byte characters such as Japanese. Other special characters are not allowed.": "ファイル名には、文字、数字、アンダースコア (_)、ダッシュ (-)、ドット（.）、および日本語などの全角文字を含めることができます。他の特殊文字は使用できません。",
+    "Filenames may contain letters, numbers, underscores (_), dashes (-), dots (.), and double-byte characters such as Japanese. Other special characters are not allowed.": "ファイル名には、英数字、全角文字に加えて、「_」（アンダースコア）、「-」（ハイフン）、「.」（ドット）を使用できます。",
     "Special characters and non-english language are not supported in filter name.  Number, underscore (_) and dash (-) are ok": "フィルター名では、特殊文字と英語以外の言語はサポートされていません。 数字、アンダースコア (_)、ダッシュ (-) は問題ありません",
     "Modification successfully.": "変更しました",
     "Real time monitoring is disabled and no more new pCap file analysis since your storage is full. Please go to Setting->Monitor->General:Aging section to clean up some data": "ストレージがフルになったため、リアルタイムモニターが無効になり新しいpCapファイルの解析もできません。[設定]>[監視]>[一般]の[エージング]セクションに移動して、データの削除をしてください。",
@@ -1194,6 +1198,7 @@
     "Click 'Apply' to save changes to Asset with Custom IP?": "変更を保存するには、『適用』をクリックしてください?",
     "Data Range": "データ範囲",
     "Click 'Apply' to save changes to Severity Level vs. AI Score?": "AIスコアに対する重大度の変更を保存しますか？保存する場合は、「適用」をクリックしてください。",
+    "You have unsaved changes. Click 'Apply' to save your changes before leaving this page.": "未保存の変更があります。このページを離れる前に、変更を保存するには「適用」をクリックしてください。",
     "Ignore": "無視",
     "Do you like to proceed?": "続行しますか？",
     "Not Apply": "未適用",
@@ -1229,6 +1234,8 @@
     "Not found repository.tar.gz and backup.tar.gz under this path": "このパスの下に repository.tar.gz と backup.tar.gz が見つかりませんでした"
   },
   "ASSETBOOK": {
+    "Event Class": "イベントクラス",
+    "Event": "イベント",
     "Malicious IP": "悪意のあるIP",
     "Domain": "ドメイン",
     "URL": "URL",
@@ -1831,6 +1838,10 @@
     "Access Limitation": "接続ユーザー数"
   },
   "NAVIGATION": {
+    "Suppression": "サプレッション",
+    "Threat Intel Update": "脅威情報更新",
+    "Expert":  "エキスパート",
+    "IoC Setting": "IoC設定",
     "Asset": "アセット",
     "White List" : "ホワイトリスト",
     "Risk Indicator Filter": "リスクインジケーターフィルター",
@@ -3554,7 +3565,7 @@
     "Add Event Suppress": "イベントサプレス新規作成",
     "Specify the generator ID of an associated rule.": "関連するGIDを指定してください。",
     "Specify the signature ID of an associated rule.": "関連するSIDを指定してください。",
-    "Restrict the suppression to only source or destination IP addresses / subnet.If this parameter is left blank, all IP addresses are restricted.": "送受信IPアドレス/サブネットのどちらを指定してください。空白の場合、すべての IP アドレスが制限されます。",
+    "Restrict the suppression to only source or destination IP addresses / subnet.": "送受信IPアドレス/サブネットのどちらを指定してください。",
     "Suppress by source IP address or destination IP address.": "送信元/送信先IPを指定して非表示にします。",
     "comment": "コメント",
     "Event rules enabled.": "イベントルールを有効にしました。",
@@ -3719,6 +3730,8 @@
     "serverName": "サーバー名",
     "dstIP": "送信先IP",
     "srcIP": "送信元IP",
+    "By Source IP": "送信元IPで",
+    "By Destination IP": "送信先IPで",
     "clientSubject": "クライアントサブジェクト",
     "cipher": "暗号",
     "timestamp": "時刻",
